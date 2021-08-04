@@ -37,3 +37,33 @@
     -  `tsc --init`
 3.  Compile all the ts files in the folder
     -  `tsc`
+    
+####  Section 7: Angular Crash Course - Fundamentals
+
+#####  31. Creating a New Angular Project
+
+1.  Install Angular CLI
+    -  `npm install -g @angular/cli`
+2.  Test version
+    -  `ng version`
+3.  Help
+    -  `ng help`
+4.  Create first project
+    -  cd to angular-training
+    -  `ng new my-first-angular-project`
+        -  routing -> No 
+        -  stylesheet -> CSS
+5.  Run the Application
+    -  from my-first-angular-project
+    -  `ng serve`
+    -  go to `http://localhost:4200`                  
+6.  Edit HTML Template file
+    -  /src/app/app.component.html
+    -  find `app is running`
+    -  changes are automatically reloaded -> view in browser
+    -  delete everything except this span  
+    
+        
+    
+    
+    
