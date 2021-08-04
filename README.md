@@ -19,3 +19,11 @@
     -  `tsc -noEmitOnError sample-types.ts` 
 
 
+####  Section 5: TypeScript Crash Course - Creating Classes
+
+##### 16. Defining Accessors
+
+-  `Accessors are only available when targeting ECMAScript 5 and higher`
+-  To fix that error add flag
+    -  `-t es5`
+    -  `tsc -noEmitOnError -t es5 Customer.ts`
