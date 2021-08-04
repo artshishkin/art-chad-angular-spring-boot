@@ -27,3 +27,13 @@
 -  To fix that error add flag
     -  `-t es5`
     -  `tsc -noEmitOnError -t es5 Customer.ts`
+
+#####  17. Configuring Compiler Options with tsconfig.json
+
+1.  Try to transpile
+    -  `tsc Customer.ts`
+    -  `Customer.ts:11:9 - error TS1056: Accessors are only available when targeting ECMAScript 5 and higher.`
+2.  Create template tsconfig file
+    -  `tsc --init`
+3.  Compile all the ts files in the folder
+    -  `tsc`
