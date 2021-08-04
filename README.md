@@ -11,3 +11,11 @@
     -  `tsc myhelloworld.ts`
 3.  Run
     -  `node myhelloworld.js`
+
+#####  9. Defining Variables
+
+1.  Even with errors `tsc` will compile JS
+2.  Add flag `-noEmitOnError`
+    -  `tsc -noEmitOnError sample-types.ts` 
+
+
