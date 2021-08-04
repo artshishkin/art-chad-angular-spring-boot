@@ -18,6 +18,8 @@ target/
 *.iml
 *.ipr
 
+*.js
+
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
