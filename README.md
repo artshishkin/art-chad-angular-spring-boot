@@ -104,4 +104,10 @@
     -  sales-person-list.component.ts
     -  change templateURL        
     
-    
+#####  42. Angular Conditionals and Formatting
+
+1.  Add a column with condition
+    -  Met quota
+2.  Format sales Volumes
+    -  use Angular pipe `currency`
+    -  ` | currency:'USD'`        
