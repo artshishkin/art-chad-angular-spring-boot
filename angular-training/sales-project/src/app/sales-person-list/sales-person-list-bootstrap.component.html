@@ -11,7 +11,7 @@
   </thead>
 
   <tbody>
-  <tr *ngFor="let tempSalesPerson of salesPersonList">
+  <tr *ngFor="let tempSalesPerson of salesPersonList" [ngClass]="{'highlight': tempSalesPerson.salesVolume >= 234}">
     <td>{{tempSalesPerson.firstName}}</td>
     <td>{{tempSalesPerson.lastName}}</td>
     <td>{{tempSalesPerson.email}}</td>

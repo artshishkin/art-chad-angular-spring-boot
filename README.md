@@ -110,4 +110,15 @@
     -  Met quota
 2.  Format sales Volumes
     -  use Angular pipe `currency`
-    -  ` | currency:'USD'`        
+    -  ` | currency:'USD'`
+
+#####  43. Bonus: Angular Conditionals: How to highlight table row
+
+[Angular Conditionals: How to highlight table row](https://github.com/darbyluv2code/fullstack-angular-and-springboot/blob/master/bonus-content/angular-crash-course/02-ngIf-highlight-entire-row/02-ngif-highligh-entire-row.md)
+
+
+
+
+
+
+            
