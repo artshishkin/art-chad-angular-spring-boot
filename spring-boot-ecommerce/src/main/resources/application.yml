@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:23306/full-stack-ecommerce
+    username: ecommerceapp
+    password: mysql_native_password
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  data:
+    rest:
+      base-path: /api
+logging:
+  level:
+    net.shyshkin: debug
