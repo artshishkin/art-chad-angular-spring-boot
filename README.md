@@ -63,7 +63,27 @@
     -  changes are automatically reloaded -> view in browser
     -  delete everything except this span  
     
-        
+##### 36. Creating a New Angular Component - Write Some Code - Part 1        
     
+1. Create new Angular project
+    -  `ng new sales-project`
+    -  routing -> no
+    -  CSS
+    -  Start project and open
+        -  `ng serve --open`
+2.  Update main template page
+    -  `app.component.html`
+3.  Generate a new component
+    -  stop server - `Ctrl+C`
+    -  `ng generate component sales-person-list`             
+4.  Add new component selector to app template page
+    -  sales-person-list.component.ts -> copy `selector`
+    -  app-sales-person-list
+    -  insert selector `into app.component.html`    
+5.  Generate SalesPerson class
+    -  `ng generate class sales-person-list/SalesPerson`
+
+
+
     
     
