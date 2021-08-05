@@ -116,7 +116,13 @@
 
 [Angular Conditionals: How to highlight table row](https://github.com/darbyluv2code/fullstack-angular-and-springboot/blob/master/bonus-content/angular-crash-course/02-ngIf-highlight-entire-row/02-ngif-highligh-entire-row.md)
 
+####  Creating Angular Module in IDEA
 
+1.  Create new module
+    -  File -> New -> Module ->
+    -  JavaScript -> Angular CLI 
+
+ 
 
 
 
