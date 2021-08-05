@@ -83,7 +83,25 @@
 5.  Generate SalesPerson class
     -  `ng generate class sales-person-list/SalesPerson`
 
+####  Section 8: Angular Crash Course - Bootstrap CSS, Conditionals and Formatting
 
+#####  40. Integrating Angular and Bootstrap CSS
 
+1.  Get links for remote Bootstrap files
+    -  visit `http://getbootstrap.com`
+    -  Get Started
+    -  Starter template
+        -  copy template for meta "Viewport" and link for Bootstrap CSS 
+2.  Add links to index.html
+3.  Apply Bootstrap CSS styles in template
+    -  `app.component.html`
+    -  wrap with `<div class="container">`
+    -  for h1 add margins (top and bottom) - `mt-3 mb-3`
+4.  Apply Bootstrap CSS styles in HTML Table (sales-person-list.component)
+    -  duplicate html -> sales-person-list-bootstrap.component.html
+    -  add styles
+5.  Update TypeScript component to reference Bootstrap HTML template
+    -  sales-person-list.component.ts
+    -  change templateURL        
     
     
