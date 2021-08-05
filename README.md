@@ -121,8 +121,10 @@
 1.  Create new module
     -  File -> New -> Module ->
     -  JavaScript -> Angular CLI 
-
- 
+2.  Add component `sales-person-list`
+    -  `app` -> Alt+Insert -> Angular Scematic -> component -> `sales-person-list`
+3.  Add new class
+    -  `sales-person-list` ->  Alt+Insert -> Angular Scematic -> class -> SalesPerson
 
 
 
