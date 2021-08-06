@@ -23,13 +23,15 @@ services:
     image: artarkatesoft/fullstack-spring-boot-ecommerce
     restart: always
     ports:
-      - 8080:8080
+      - 8082:8080
     depends_on:
       - mysql
 
   angular-ecommerce:
     image: artarkatesoft/fullstack-angular-ecommerce
     restart: always
+    environment:
+      API_URL: http://localhost:8082
     ports:
       - 4080:80
     depends_on:

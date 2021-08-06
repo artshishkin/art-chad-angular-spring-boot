@@ -122,7 +122,7 @@
     -  File -> New -> Module ->
     -  JavaScript -> Angular CLI 
 2.  Add component `sales-person-list`
-    -  `app` -> Alt+Insert -> Angular Scematic -> component -> `sales-person-list`
+    -  `app` -> Alt+Insert -> Angular Schematic -> component -> `sales-person-list`
 3.  Add new class
     -  `sales-person-list` ->  Alt+Insert -> Angular Scematic -> class -> SalesPerson
 
@@ -133,6 +133,7 @@
     -  create `.dockerignore`
     -  `docker build -t artarkatesoft/fullstack-angular-ecommerce .`
 
+-  [Dynamically set Angular Environment Variables in Docker](https://pumpingco.de/blog/environment-variables-angular-docker/)
 
 
             
