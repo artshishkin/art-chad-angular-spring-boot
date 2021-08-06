@@ -11,7 +11,7 @@ services:
       MYSQL_PASSWORD: mysql_native_password
       MYSQL_DATABASE: full-stack-ecommerce
     volumes:
-    - mysql-data:/var/lib/mysql
+      - mysql-data:/var/lib/mysql
 
   adminer:
     image: adminer
@@ -22,6 +22,9 @@ services:
   spring-boot-ecommerce:
     image: artarkatesoft/fullstack-spring-boot-ecommerce
     restart: always
+    environment:
+#      "app.cors.allowedOrigins": http://localhost:4080
+      APP_CORS_ALLOWEDORIGINS: http://localhost:4080 #both works fine
     ports:
       - 8082:8080
     depends_on:
