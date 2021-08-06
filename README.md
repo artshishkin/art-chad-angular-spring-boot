@@ -135,5 +135,12 @@
 
 -  [Dynamically set Angular Environment Variables in Docker](https://pumpingco.de/blog/environment-variables-angular-docker/)
 
+####  Section 11: eCommerce Project - Integrating Online Shop Template
 
+#####  66. Angular Project - Install Bootstrap CSS Styles with npm
+
+-  `cd angular-ecommerce`
+-  `npm install bootstrap`
+-  install fontawesome-free
+    -  `npm install @fortawesome/fontawesome-free`
             
