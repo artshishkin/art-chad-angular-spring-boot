@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:23306/full-stack-ecommerce
+    url: jdbc:mysql://mysql:3306/full-stack-ecommerce
     username: ecommerceapp
     password: mysql_native_password
   jpa:
@@ -13,3 +13,11 @@ spring:
 logging:
   level:
     net.shyshkin: debug
+
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+  datasource:
+    url: jdbc:mysql://localhost:23306/full-stack-ecommerce
