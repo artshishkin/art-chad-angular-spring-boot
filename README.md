@@ -128,6 +128,10 @@
 
 ####  Docker images for backend and frontend
 
+-  [How to Dockerize Angular App?](https://dzone.com/articles/how-to-dockerize-angular-app)
+    -  create `Dockerfile`
+    -  create `.dockerignore`
+    -  `docker build -t artarkatesoft/fullstack-angular-ecommerce .`
 
 
 
