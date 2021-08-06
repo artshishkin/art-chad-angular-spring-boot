@@ -1,1 +1,4 @@
-<p>product-list works!</p>
+<p *ngFor="let product of products">
+  {{product.name}} {{product.description}}  {{product.unitPrice | currency:'USD'}}
+</p>
+
