@@ -126,6 +126,8 @@
 3.  Add new class
     -  `sales-person-list` ->  Alt+Insert -> Angular Scematic -> class -> SalesPerson
 
+####  Docker images for backend and frontend
+
 
 
 
