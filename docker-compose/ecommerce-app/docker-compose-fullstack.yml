@@ -27,6 +27,14 @@ services:
     depends_on:
       - mysql
 
+  angular-ecommerce:
+    image: artarkatesoft/fullstack-angular-ecommerce
+    restart: always
+    ports:
+      - 4080:80
+    depends_on:
+      - spring-boot-ecommerce
+
 volumes:
   mysql-data:
 
