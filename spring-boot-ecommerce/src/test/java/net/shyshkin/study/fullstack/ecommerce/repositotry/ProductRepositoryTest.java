@@ -33,11 +33,11 @@ class ProductRepositoryTest {
                         .isNotNull()
                         .hasFieldOrPropertyWithValue("id", 2L)
                         .hasFieldOrPropertyWithValue("sku", "BOOK-TECH-1001")
-                        .hasFieldOrPropertyWithValue("name", "Spring Framework Tutorial")
-                        .satisfies(pr -> assertThat(pr.getProductCategory())
+                        .hasFieldOrPropertyWithValue("name", "Become a Guru in JavaScript")
+                        .satisfies(pr -> assertThat(pr.getCategory())
                                 .isNotNull()
                                 .hasNoNullFieldsOrProperties()
-                                .hasFieldOrPropertyWithValue("categoryName", "BOOKS")
+                                .hasFieldOrPropertyWithValue("categoryName", "Books")
                         )
                 );
     }

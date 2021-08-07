@@ -20,7 +20,7 @@ public class ProductCategory {
 
     private String categoryName;
 
-    @OneToMany(mappedBy = "productCategory",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "category",cascade = CascadeType.ALL)
     @ToString.Exclude
     private Set<Product> products;
 

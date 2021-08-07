@@ -2,7 +2,6 @@ package net.shyshkin.study.fullstack.ecommerce.entity;
 
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.Type;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
@@ -39,7 +38,7 @@ public class Product {
 
     @ManyToOne
     @JoinColumn(name = "category_id", referencedColumnName = "id", nullable = false)
-    private ProductCategory productCategory;
+    private ProductCategory category;
 
 //  `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
 //  `sku` VARCHAR(255) DEFAULT NULL,

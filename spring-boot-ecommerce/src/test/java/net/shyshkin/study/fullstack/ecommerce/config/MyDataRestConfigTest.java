@@ -36,7 +36,7 @@ class MyDataRestConfigTest {
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(responseEntity.getBody())
                 .isNotNull()
-                .hasNoNullFieldsOrPropertiesExcept("lastUpdated", "id", "productCategory");
+                .hasNoNullFieldsOrPropertiesExcept("lastUpdated", "id", "category");
     }
 
     @Test
