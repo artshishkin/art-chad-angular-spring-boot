@@ -1,5 +1,6 @@
 package net.shyshkin.study.fullstack.ecommerce.config;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.shyshkin.study.fullstack.ecommerce.entity.Product;
 import net.shyshkin.study.fullstack.ecommerce.entity.ProductCategory;
@@ -10,13 +11,18 @@ import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
+import javax.persistence.EntityManager;
+import javax.persistence.metamodel.Type;
 import java.util.List;
 
 import static org.springframework.http.HttpMethod.*;
 
 @Slf4j
 @Configuration
+@RequiredArgsConstructor
 public class MyDataRestConfig implements RepositoryRestConfigurer {
+
+    private final EntityManager entityManager;
 
     @Value("${app.cors.allowedOrigins}")
     private List<String> corsAllowedOrigins;
@@ -39,5 +45,19 @@ public class MyDataRestConfig implements RepositoryRestConfigurer {
             log.debug("CORS Allowed {} origins: {}", origins.length, origins);
             cors.addMapping("/api/**").allowedOrigins(origins);
         }
+
+        exposeIdsForAllEntityClasses(config);
+    }
+
+    private void exposeIdsForAllEntityClasses(RepositoryRestConfiguration config) {
+
+        Class<?>[] entityClasses = entityManager
+                .getMetamodel()
+                .getEntities()
+                .stream()
+                .map(Type::getJavaType)
+                .toArray(Class<?>[]::new);
+
+        config.exposeIdsFor(entityClasses);
     }
 }

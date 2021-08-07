@@ -87,4 +87,24 @@ class MyDataRestConfigTest {
         log.debug("ResponseEntity: {}", responseEntity);
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.METHOD_NOT_ALLOWED);
     }
+
+    @Test
+    void exposeIdTest() {
+
+        //given
+        long id = 1L;
+
+        //when
+        ResponseEntity<Product> responseEntity = testRestTemplate.exchange("/api/products/{id}", HttpMethod.GET, null, Product.class, id);
+
+        //then
+        log.debug("ResponseEntity: {}", responseEntity);
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(responseEntity.getBody())
+                .isNotNull()
+                .hasNoNullFieldsOrPropertiesExcept("lastUpdated", "category")
+                .hasFieldOrPropertyWithValue("id", id);
+    }
+
+
 }
