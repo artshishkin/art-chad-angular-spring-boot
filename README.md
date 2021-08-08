@@ -150,5 +150,6 @@
 -  start redis-cli in docker
     -  `docker exec -it redis redis-cli`
 
+-  performance **increased** from 640 requests/sec to 2540 req/sec -> ~ **4 times**
 
             
