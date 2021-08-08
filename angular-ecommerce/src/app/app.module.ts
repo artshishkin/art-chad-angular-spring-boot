@@ -31,10 +31,7 @@ const routes: Routes = [
   imports: [
     RouterModule.forRoot(routes),
     BrowserModule,
-    HttpClientModule,
-    RouterModule,
-    RouterModule,
-    RouterModule
+    HttpClientModule
   ],
   providers: [ProductService],
   bootstrap: [AppComponent]
