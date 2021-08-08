@@ -143,4 +143,12 @@
 -  `npm install bootstrap`
 -  install fontawesome-free
     -  `npm install @fortawesome/fontawesome-free`
+
+####  Add caching for product-category endpoint
+
+-  [spring-data-rest-with-cache](https://stackoverflow.com/questions/51591121/spring-data-rest-with-cache)
+-  start redis-cli in docker
+    -  `docker exec -it redis redis-cli`
+
+
             
