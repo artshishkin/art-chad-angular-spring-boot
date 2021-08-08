@@ -10,7 +10,7 @@ import {Product} from "../../common/product";
 })
 export class ProductDetailsComponent implements OnInit {
 
-  currentProduct: Product;
+  product: Product;
 
   constructor(private productService: ProductService,
               private route: ActivatedRoute) {
@@ -26,6 +26,6 @@ export class ProductDetailsComponent implements OnInit {
     const currentProductId:number = +this.route.snapshot.paramMap.get('id')!;
     this.productService
       .getProduct(currentProductId)
-      .subscribe(data => this.currentProduct = data);
+      .subscribe(data => this.product = data);
   }
 }

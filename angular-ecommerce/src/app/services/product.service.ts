@@ -47,7 +47,8 @@ export class ProductService {
   }
 
   getProduct(productId: number): Observable<Product> {
-    throw Error("NOT implemented yet");
+    return this.httpClient
+      .get<Product>(`${this.productsUrl}/${productId}`);
   }
 }
 
