@@ -24,6 +24,17 @@ export class ProductService {
     // need to build URL based on category id
     const searchUrl = `${this.productsUrl}/search/findByCategoryId?id=${categoryId}`;
 
+    return this.fetchProducts(searchUrl);
+  }
+
+  searchProducts(keyword: string | null): Observable<Product[]> {
+
+    const searchUrl = `${this.productsUrl}/search/findByNameContaining?name=${keyword}`;
+
+    return this.fetchProducts(searchUrl);
+  }
+
+  private fetchProducts(searchUrl: string) {
     return this.httpClient
       .get<ProductsGetResponse>(searchUrl)
       .pipe(map(response => response._embedded.products));
@@ -33,10 +44,6 @@ export class ProductService {
     return this.httpClient
       .get<CategoryGetResponse>(this.categoryUrl)
       .pipe(map(response => response._embedded.productCategory));
-  }
-
-  searchProducts(keyword: string | null): Observable<Product[]> {
-    throw new Error("Not implemented yet");
   }
 
 }
