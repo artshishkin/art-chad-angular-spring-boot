@@ -4,6 +4,7 @@ import {Observable} from "rxjs";
 import {Product} from "../common/product";
 import {map} from "rxjs/operators";
 import {environment} from "../../environments/environment";
+import {ProductCategory} from "../common/product-category";
 
 
 @Injectable({
@@ -11,7 +12,9 @@ import {environment} from "../../environments/environment";
 })
 export class ProductService {
 
-  private baseUrl = `${environment.backendServerUrl}/api/products`;
+  private baseUrl = `${environment.backendServerUrl}/api`;
+  private productsUrl = `${this.baseUrl}/products`;
+  private categoryUrl = `${this.baseUrl}/product-category`;
 
   constructor(private httpClient: HttpClient) {
   }
@@ -19,16 +22,28 @@ export class ProductService {
   getProductList(categoryId: number): Observable<Product[]> {
 
     // need to build URL based on category id
-    const searchUrl = `${this.baseUrl}/search/findByCategoryId?id=${categoryId}`;
+    const searchUrl = `${this.productsUrl}/search/findByCategoryId?id=${categoryId}`;
 
     return this.httpClient
-      .get<GetResponse>(searchUrl)
+      .get<ProductsGetResponse>(searchUrl)
       .pipe(map(response => response._embedded.products));
+  }
+
+  getProductCategories(): Observable<ProductCategory[]> {
+    return this.httpClient
+      .get<CategoryGetResponse>(this.categoryUrl)
+      .pipe(map(response => response._embedded.productCategory));
   }
 }
 
-interface GetResponse {
+interface ProductsGetResponse {
   _embedded: {
     products: Product[];
+  }
+}
+
+interface CategoryGetResponse {
+  _embedded: {
+    productCategory: ProductCategory[];
   }
 }
