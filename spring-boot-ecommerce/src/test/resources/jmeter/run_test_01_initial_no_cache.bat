@@ -1,0 +1,1 @@
+c:\Users\Admin\Downloads\apache-jmeter-5.4.1\bin\jmeter.bat -n -t product-category-01-initial.jmx -l results/01-initial-no-cache.jtl
