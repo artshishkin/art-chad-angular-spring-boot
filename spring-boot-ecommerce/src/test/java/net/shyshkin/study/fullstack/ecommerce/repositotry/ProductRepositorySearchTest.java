@@ -36,4 +36,22 @@ class ProductRepositorySearchTest {
                 .isNotNull()
                 .contains("/api/products/1", "/api/products/20");
     }
+
+    @Test
+    void findByNameContaining() {
+
+        //given
+        String keyword = "python";
+
+        //when
+//    http://localhost:8080/api/products/search/findByNameContaining?name=python
+        var responseEntity = testRestTemplate.exchange("/api/products/search/findByNameContaining?name={keyword}", HttpMethod.GET, null, String.class, keyword);
+
+        //then
+        log.debug("ResponseEntity: {}", responseEntity);
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(responseEntity.getBody())
+                .isNotNull()
+                .contains("\"Crash Course in Python\"", "\"Introduction to Python\"");
+    }
 }
