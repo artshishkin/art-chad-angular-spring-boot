@@ -30,6 +30,18 @@ export class ProductListComponent implements OnInit {
 
   private listProducts() {
 
+    const isSearchByKeyword: boolean = this.route.snapshot.paramMap.has('keyword');
+
+    if (isSearchByKeyword) {
+      this.handleSearchProducts();
+    } else {
+      this.handleListProducts();
+    }
+
+  }
+
+  private handleListProducts(): void {
+
     const hasCategoryId = this.route.snapshot.paramMap.has('id');
 
     if (hasCategoryId) {
@@ -47,5 +59,10 @@ export class ProductListComponent implements OnInit {
     }
 
     this.productService.getProductList(this.currentCategoryId).subscribe(data => this.products = data);
+  }
+
+  private handleSearchProducts(): void {
+    const keyword = this.route.snapshot.paramMap.get('keyword');
+    this.productService.searchProducts(keyword).subscribe(data => this.products = data);
   }
 }

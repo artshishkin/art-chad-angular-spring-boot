@@ -34,6 +34,11 @@ export class ProductService {
       .get<CategoryGetResponse>(this.categoryUrl)
       .pipe(map(response => response._embedded.productCategory));
   }
+
+  searchProducts(keyword: string | null): Observable<Product[]> {
+    throw new Error("Not implemented yet");
+  }
+
 }
 
 interface ProductsGetResponse {
