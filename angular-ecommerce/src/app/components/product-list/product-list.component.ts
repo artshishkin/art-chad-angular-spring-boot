@@ -13,6 +13,7 @@ export class ProductListComponent implements OnInit {
   products: Product[] = [];
   currentCategoryId: number;
   currentCategoryName: string;
+  keyword: string | null;
 
   private DEFAULT_CATEGORY_ID: number = 1;
   private DEFAULT_CATEGORY_NAME: string = 'Books';
@@ -62,7 +63,7 @@ export class ProductListComponent implements OnInit {
   }
 
   private handleSearchProducts(): void {
-    const keyword = this.route.snapshot.paramMap.get('keyword');
-    this.productService.searchProducts(keyword).subscribe(data => this.products = data);
+    this.keyword = this.route.snapshot.paramMap.get('keyword');
+    this.productService.searchProducts(this.keyword).subscribe(data => this.products = data);
   }
 }

@@ -1,8 +1,10 @@
 <div class="main-content">
   <div class="section-content section-content-p30">
 
-    <h4>Category: {{currentCategoryName}}</h4>
-    <hr>
+    <div *ngIf="currentCategoryName">
+      <h4>Category: {{currentCategoryName}}</h4>
+      <hr>
+    </div>
 
     <div class="container-fluid">
       <div class="row">
@@ -20,6 +22,13 @@
             <a href="#" class="primary-btn">Add to cart</a>
           </div>
         </div>
+
+        <div *ngIf="products?.length==0" class="alert alert-warning col-md-12" role="alert">
+          <h4 *ngIf="keyword;else elseBlock">Products not found for <b>{{keyword}}</b></h4>
+          <ng-template #elseBlock><h4>Products not found</h4></ng-template>
+          <hr>
+        </div>
+
       </div>
     </div>
   </div>
