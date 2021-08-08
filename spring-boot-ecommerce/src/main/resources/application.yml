@@ -10,6 +10,8 @@ spring:
   data:
     rest:
       base-path: /api
+  autoconfigure:
+    exclude: org.redisson.spring.starter.RedissonAutoConfiguration
 logging:
   level:
     net.shyshkin: debug
@@ -17,7 +19,6 @@ app:
   cors:
     allowedOrigins: http://localhost:4200
 #    allowedOrigins: http://localhost:4200,http://localhost:4080
-
 ---
 spring:
   config:
