@@ -26,7 +26,7 @@ public class ProductCategory implements Serializable {
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     @ToString.Exclude
-    transient private Set<Product> products;
+    private Set<Product> products;
 
 //  `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
 //  `category_name` VARCHAR(255) NULL DEFAULT NULL,
