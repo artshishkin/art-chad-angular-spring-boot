@@ -14,11 +14,11 @@ import java.util.Optional;
 @RepositoryRestResource(collectionResourceRel = "productCategory", path = "product-category")
 public interface ProductCategoryRepository extends JpaRepository<ProductCategory, Long> {
 
-    @Cacheable("productCategory")
+    @Cacheable("productCategory:findById")
     @Override
     Optional<ProductCategory> findById(Long id);
 
-    @Cacheable("pagedProductCategories")
+    @Cacheable("productCategory:findAll:page")
     @Override
     Page<ProductCategory> findAll(Pageable pageable);
 

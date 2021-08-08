@@ -21,10 +21,10 @@ public class ProductCategoryEventHandler {
     @HandleAfterDelete
     public void handleCachesEviction(ProductCategory entity) {
 
-        Optional.ofNullable(cacheManager.getCache("productCategory"))
+        Optional.ofNullable(cacheManager.getCache("productCategory:findById"))
                 .ifPresent(c -> c.evict(entity.getId()));
 
-        Optional.ofNullable(cacheManager.getCache("pagedProductCategories"))
+        Optional.ofNullable(cacheManager.getCache("productCategory:findAll:page"))
                 .ifPresent(c -> c.clear());
     }
 
