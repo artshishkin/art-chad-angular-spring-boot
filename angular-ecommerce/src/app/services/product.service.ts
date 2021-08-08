@@ -46,6 +46,9 @@ export class ProductService {
       .pipe(map(response => response._embedded.productCategory));
   }
 
+  getProduct(productId: number): Observable<Product> {
+    throw Error("NOT implemented yet");
+  }
 }
 
 interface ProductsGetResponse {
