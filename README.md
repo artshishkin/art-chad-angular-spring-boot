@@ -152,4 +152,12 @@
 
 -  performance **increased** from 640 requests/sec to 2540 req/sec -> ~ **4 times**
 
+####  Section 16: eCommerce Project - Pagination
+
+#####  109. Angular Project - Pagination - Install ng-bootstrap
+
+-  `cd angular-ecommerce`
+-  `ng add @angular/localize`
+-  `npm install @ng-bootstrap/ng-bootstrap`
+
             
