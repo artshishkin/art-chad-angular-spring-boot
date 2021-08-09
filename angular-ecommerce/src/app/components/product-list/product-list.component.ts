@@ -22,7 +22,7 @@ export class ProductListComponent implements OnInit {
 
   // new properties for pagination
   pageNumber: number = 1;
-  pageSize: number = 10;
+  pageSize: number = 5;
   totalElements: number = 0;
 
   constructor(private productService: ProductService,
@@ -103,8 +103,10 @@ export class ProductListComponent implements OnInit {
   }
 
   updatePageSize(pageSize: number) {
-    this.pageNumber = 1;
+    const firstProductOnPageIdx: number = (this.pageNumber - 1) * this.pageSize;
+    this.pageNumber = Math.floor(firstProductOnPageIdx / pageSize) + 1;
     this.pageSize = pageSize;
+
     this.listProducts();
   }
 }
