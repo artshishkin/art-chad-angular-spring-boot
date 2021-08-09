@@ -36,7 +36,7 @@ export class ProductListComponent implements OnInit {
     });
   }
 
-  private listProducts() {
+  listProducts() {
 
     const isSearchByKeyword: boolean = this.route.snapshot.paramMap.has('keyword');
 
@@ -50,6 +50,7 @@ export class ProductListComponent implements OnInit {
 
   private handleListProducts(): void {
 
+    console.log("handleListProducts()");
     const hasCategoryId = this.route.snapshot.paramMap.has('id');
 
     if (hasCategoryId) {
