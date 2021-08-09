@@ -18,7 +18,9 @@ export class ProductListComponent implements OnInit {
   private previousCategoryId: number = this.DEFAULT_CATEGORY_ID;
 
   currentCategoryName: string = this.DEFAULT_CATEGORY_NAME;
-  keyword: string | null;
+  keyword: string;
+  private previousKeyword: string;
+
 
   // new properties for pagination
   pageNumber: number = 1;
@@ -98,8 +100,15 @@ export class ProductListComponent implements OnInit {
   }
 
   private handleSearchProducts(): void {
-    this.keyword = this.route.snapshot.paramMap.get('keyword');
-    this.productService.searchProducts(this.keyword).subscribe(data => this.products = data);
+    this.keyword = this.route.snapshot.paramMap.get('keyword')!;
+    if (this.previousKeyword != this.keyword) {
+      this.pageNumber = 1;
+    }
+    this.previousKeyword = this.keyword;
+
+    this.productService
+      .searchProductsPaginate(this.keyword, this.pageNumber - 1, this.pageSize)
+      .subscribe(this.processResult());
   }
 
   updatePageSize(pageSize: number) {
