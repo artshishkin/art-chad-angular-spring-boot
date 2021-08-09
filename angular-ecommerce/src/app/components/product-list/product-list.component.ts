@@ -101,4 +101,10 @@ export class ProductListComponent implements OnInit {
     this.keyword = this.route.snapshot.paramMap.get('keyword');
     this.productService.searchProducts(this.keyword).subscribe(data => this.products = data);
   }
+
+  updatePageSize(pageSize: number) {
+    this.pageNumber = 1;
+    this.pageSize = pageSize;
+    this.listProducts();
+  }
 }

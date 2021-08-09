@@ -53,7 +53,7 @@
 
               <div class="col-md-3 mt-2" style="text-align: right;">
                 <span class="mx-2">Page size</span>
-                <select>
+                <select #pageSizeSelect (change)="updatePageSize(+pageSizeSelect.value)">
                   <option selected="selected">5</option>
                   <option>10</option>
                   <option>20</option>
