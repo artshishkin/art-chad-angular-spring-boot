@@ -26,8 +26,17 @@ export class CartService {
   }
 
   private computeCartTotals() {
+
+    let totalPriceValue: number = 0;
+    let totalQuantityValue: number = 0;
+
     for (let item of this.cart.values()) {
-      console.log(`${item.toString()}`);
+      totalPriceValue += item.quantity * item.unitPrice;
+      totalQuantityValue += item.quantity;
     }
+    console.log(`Total price: ${totalPriceValue.toFixed(2)}, total quantity: ${totalQuantityValue}`);
+
+    this.totalPrice.next(totalPriceValue);
+    this.totalQuantity.next(totalQuantityValue);
   }
 }
