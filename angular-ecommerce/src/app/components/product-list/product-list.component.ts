@@ -10,14 +10,11 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class ProductListComponent implements OnInit {
 
-  private DEFAULT_CATEGORY_ID: number = 1;
-  private DEFAULT_CATEGORY_NAME: string = 'Books';
-
   products: Product[] = [];
-  currentCategoryId: number = this.DEFAULT_CATEGORY_ID;
-  private previousCategoryId: number = this.DEFAULT_CATEGORY_ID;
+  currentCategoryId: number | null;
+  private previousCategoryId: null | number;
 
-  currentCategoryName: string = this.DEFAULT_CATEGORY_NAME;
+  currentCategoryName: string | null;
   keyword: string;
   private previousKeyword: string;
 
@@ -56,16 +53,9 @@ export class ProductListComponent implements OnInit {
     const hasCategoryId = this.route.snapshot.paramMap.has('id');
 
     if (hasCategoryId) {
-      const categoryId = this.route.snapshot.paramMap.get('id');
-      this.currentCategoryId = (categoryId != null) ? +categoryId : this.DEFAULT_CATEGORY_ID;
 
-      const categoryName = this.route.snapshot.paramMap.get('name');
-      this.currentCategoryName = categoryName != null ? categoryName : this.DEFAULT_CATEGORY_NAME;
-
-    } else {
-
-      this.currentCategoryId = this.DEFAULT_CATEGORY_ID;
-      this.currentCategoryName = this.DEFAULT_CATEGORY_NAME;
+      this.currentCategoryId = +(this.route.snapshot.paramMap.get('id'))!;
+      this.currentCategoryName = this.route.snapshot.paramMap.get('name');
 
     }
 
