@@ -108,4 +108,8 @@ export class ProductListComponent implements OnInit {
 
     this.listProducts();
   }
+
+  addToCart(product: Product) {
+    console.log(`Adding to card product: ${product.name}`);
+  }
 }
