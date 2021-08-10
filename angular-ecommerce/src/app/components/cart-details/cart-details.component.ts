@@ -25,4 +25,8 @@ export class CartDetailsComponent implements OnInit {
     this.cartService.cartStatusSubject.asObservable().subscribe(data => this.cartTotals = data);
     this.cartService.computeCartTotals();
   }
+
+  incrementQuantity(cartItem: CartItem) {
+    this.cartService.addToCart(cartItem);
+  }
 }
