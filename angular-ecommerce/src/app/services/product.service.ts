@@ -5,6 +5,7 @@ import {Product} from "../common/product";
 import {map} from "rxjs/operators";
 import {environment} from "../../environments/environment";
 import {ProductCategory} from "../common/product-category";
+import {Page} from "../common/page";
 
 
 @Injectable({
@@ -71,12 +72,7 @@ export interface ProductsGetResponse {
   _embedded: {
     products: Product[];
   },
-  page: {
-    size: number,
-    totalElements: number,
-    totalPages: number,
-    number: number
-  }
+  page: Page
 }
 
 interface CategoryGetResponse {
