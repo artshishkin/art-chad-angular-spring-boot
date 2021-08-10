@@ -22,7 +22,21 @@
             </td>
             <td>
               <div class="items">
-                <label>Quantity: </label>{{ cartItem.quantity }}
+                <label>Quantity: </label>
+                <div class="row g-0">
+                  <div class="col">
+                    <button class="btn btn-primary" ><i class="fa fa-plus"></i>
+                    </button>
+                  </div>
+                  <div class="col mx-4">
+                    {{ cartItem.quantity }}
+                  </div>
+                  <div class="col">
+                    <button class="btn btn-primary" ><i class="fa fa-minus"></i>
+                    </button>
+                  </div>
+                  <div class="col-8"></div>
+                </div>
               </div>
               <p class="mt-2">Sub-total: {{cartItem.unitPrice * cartItem.quantity | currency:'USD'}}</p>
               <button class="btn btn-light">Remove</button>
