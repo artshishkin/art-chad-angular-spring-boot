@@ -7,54 +7,17 @@
           <th width="50%">Product Detail</th>
           <th width="30%"></th>
         </tr>
-        <tr>
-          <td><img src="assets/images/products/placeholder.png" class="img-responsive"
-                   width="150px"></td>
+        <tr *ngFor="let cartItem of cartItems">
+          <td><img src="{{cartItem.imageUrl}}" class="img-responsive" width="150px"></td>
           <td>
-            <p>Product title</p>
-            <p>Product subtitle title</p>
-            <p>$9.99</p>
+            <p>{{cartItem.name}}</p>
+            <p>{{cartItem.unitPrice | currency:'USD'}}</p>
           </td>
           <td>
             <div class="items">
-              <label>Quantity</label> <select>
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-            </select>
+              <label>Quantity: </label>{{ cartItem.quantity }}
             </div>
-            <p>Sub-total $9.99</p>
-            <a href="#" class="primary-btn">Remove</a>
-          </td>
-        </tr>
-        <tr>
-          <td><img src="assets/images/products/placeholder.png" class="img-responsive"
-                   width="150px"></td>
-          <td>
-            <p>Product title</p>
-            <p>Product subtitle title</p>
-            <p>$9.99</p>
-          </td>
-          <td>
-            <div class="items">
-              <label>Quantity</label> <select>
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-            </select>
-            </div>
-            <p>Sub-total $9.99</p>
-            <a href="#" class="primary-btn">Remove</a>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="2"></td>
-          <td><b>Total Quantity:2</b>
-            <p>Shipping FREE</p>
-            <b>Total Price: $19.99</b><br>
-            <a href="checkout-page.html" class="primary-btn">Checkout</a>
+
           </td>
         </tr>
 
