@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {CartItem} from "../common/cart-item";
 import {Subject} from "rxjs";
+import {CartStatusDto} from "../common/cart-status-dto";
 
 @Injectable({
   providedIn: 'root'
@@ -8,8 +9,8 @@ import {Subject} from "rxjs";
 export class CartService {
 
   private cart: Map<number, CartItem> = new Map<number, CartItem>();
-  totalPrice: Subject<number> = new Subject<number>();
-  totalQuantity: Subject<number> = new Subject<number>();
+
+  cartStatusSubject: Subject<CartStatusDto> = new Subject<CartStatusDto>();
 
   constructor() {
   }
@@ -36,7 +37,6 @@ export class CartService {
     }
     console.log(`Total price: ${totalPriceValue.toFixed(2)}, total quantity: ${totalQuantityValue}`);
 
-    this.totalPrice.next(totalPriceValue);
-    this.totalQuantity.next(totalQuantityValue);
+    this.cartStatusSubject.next({totalPrice: totalPriceValue, totalQuantity: totalQuantityValue})
   }
 }

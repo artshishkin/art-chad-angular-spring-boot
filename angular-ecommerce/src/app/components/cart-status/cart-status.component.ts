@@ -19,7 +19,11 @@ export class CartStatusComponent implements OnInit {
   }
 
   private updateCartStatus() {
-    this.cartService.totalPrice.asObservable().subscribe(data => this.totalPrice = data);
-    this.cartService.totalQuantity.asObservable().subscribe(data => this.totalQuantity = data);
+    this.cartService
+      .cartStatusSubject.asObservable()
+      .subscribe(data => {
+        this.totalPrice = data.totalPrice;
+        this.totalQuantity = data.totalQuantity;
+      });
   }
 }
