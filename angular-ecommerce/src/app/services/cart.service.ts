@@ -26,7 +26,7 @@ export class CartService {
     this.computeCartTotals();
   }
 
-  private computeCartTotals() {
+  computeCartTotals() {
 
     let totalPriceValue: number = 0;
     let totalQuantityValue: number = 0;
@@ -38,5 +38,9 @@ export class CartService {
     console.log(`Total price: ${totalPriceValue.toFixed(2)}, total quantity: ${totalQuantityValue}`);
 
     this.cartStatusSubject.next({totalPrice: totalPriceValue, totalQuantity: totalQuantityValue})
+  }
+
+  getCartItems(): CartItem[] {
+    return Array.from(this.cart.values());
   }
 }
