@@ -17,10 +17,19 @@
             <div class="items">
               <label>Quantity: </label>{{ cartItem.quantity }}
             </div>
-
+            <p class="mt-2">Sub-total: {{cartItem.unitPrice * cartItem.quantity | currency:'USD'}}</p>
+            <button class="btn btn-light">Remove</button>
           </td>
         </tr>
 
+        <tr>
+          <td colspan="2"></td>
+          <td style="font-weight: bold">
+            <p>Total Quantity: {{cartTotals.totalQuantity}}</p>
+            <p>Shipping FREE</p>
+            <b>Total Price: {{cartTotals.totalPrice | currency:'USD'}}</b><br>
+          </td>
+        </tr>
       </table>
 
     </div>
