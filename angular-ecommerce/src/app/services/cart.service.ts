@@ -43,4 +43,19 @@ export class CartService {
   getCartItems(): CartItem[] {
     return Array.from(this.cart.values());
   }
+
+  decrementQuantity(cartItem: CartItem) {
+
+    cartItem.quantity--;
+
+    if (cartItem.quantity <= 0)
+      this.remove(cartItem);
+    else
+      this.computeCartTotals();
+  }
+
+  private remove(cartItem: CartItem) {
+    this.cart.delete(cartItem.id);
+    this.computeCartTotals();
+  }
 }
