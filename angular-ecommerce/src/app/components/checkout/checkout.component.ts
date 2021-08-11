@@ -94,9 +94,6 @@ export class CheckoutComponent implements OnInit {
       const shippingAddressStates = this.states.get('shippingAddress');
       this.states.set('billingAddress', shippingAddressStates ? shippingAddressStates : []);
 
-      this.checkoutFormGroup
-        .get('billingAddress')?.get("state")?.setValue(this.checkoutFormGroup.get('shippingAddress')?.value.state);
-
     } else {
       this.checkoutFormGroup.controls.billingAddress.reset();
       this.states.set('billingAddress', []);
