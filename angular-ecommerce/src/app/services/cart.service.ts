@@ -11,6 +11,7 @@ export class CartService {
   private cart: Map<number, CartItem> = new Map<number, CartItem>();
 
   cartStatusSubject: Subject<CartStatusDto> = new Subject<CartStatusDto>();
+  cartItemsSubject: Subject<CartItem[]> = new Subject<CartItem[]>();
 
   constructor() {
   }
@@ -18,6 +19,7 @@ export class CartService {
   addToCart(cartItem: CartItem) {
     if (!this.cart.has(cartItem.id)) {
       this.cart.set(cartItem.id, cartItem);
+      this.updateCartItemsSubject();
     } else {
       let existingItem = this.cart.get(cartItem.id)!;
       existingItem.quantity++;
@@ -40,7 +42,7 @@ export class CartService {
     this.cartStatusSubject.next({totalPrice: totalPriceValue, totalQuantity: totalQuantityValue})
   }
 
-  getCartItems(): CartItem[] {
+  private getCartItems(): CartItem[] {
     return Array.from(this.cart.values());
   }
 
@@ -54,8 +56,13 @@ export class CartService {
       this.computeCartTotals();
   }
 
-  private remove(cartItem: CartItem) {
+  remove(cartItem: CartItem) {
     this.cart.delete(cartItem.id);
+    this.updateCartItemsSubject();
     this.computeCartTotals();
+  }
+
+  updateCartItemsSubject() {
+    this.cartItemsSubject.next(this.getCartItems());
   }
 }

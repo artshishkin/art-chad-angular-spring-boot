@@ -21,9 +21,10 @@ export class CartDetailsComponent implements OnInit {
   }
 
   private listCartDetails() {
-    this.cartItems = this.cartService.getCartItems();
+    this.cartService.cartItemsSubject.asObservable().subscribe(data => this.cartItems = data);
     this.cartService.cartStatusSubject.asObservable().subscribe(data => this.cartTotals = data);
     this.cartService.computeCartTotals();
+    this.cartService.updateCartItemsSubject();
   }
 
   incrementQuantity(cartItem: CartItem) {
@@ -32,6 +33,5 @@ export class CartDetailsComponent implements OnInit {
 
   decrementQuantity(cartItem: CartItem) {
     this.cartService.decrementQuantity(cartItem);
-    this.cartItems = this.cartService.getCartItems();
   }
 }
