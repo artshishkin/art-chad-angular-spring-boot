@@ -9,11 +9,14 @@
       <ng-template #cartNotEmpty>
 
         <table class="table table-bordered">
+          <thead>
           <tr>
             <th width="20%">Product Image</th>
             <th width="50%">Product Detail</th>
             <th width="30%"></th>
           </tr>
+          </thead>
+          <tbody>
           <tr *ngFor="let cartItem of cartItems">
             <td><img src="{{cartItem.imageUrl}}" class="img-responsive" width="150px"></td>
             <td>
@@ -38,8 +41,8 @@
                   <div class="col-8"></div>
                 </div>
               </div>
+              <button class="btn btn-primary btn-sm mt-2" (click)="remove(cartItem)">Remove</button>
               <p class="mt-2">Sub-total: {{cartItem.unitPrice * cartItem.quantity | currency:'USD'}}</p>
-              <button class="btn btn-light">Remove</button>
             </td>
           </tr>
 
@@ -51,6 +54,7 @@
               <b>Total Price: {{cartTotals.totalPrice | currency:'USD'}}</b><br>
             </td>
           </tr>
+          </tbody>
         </table>
 
       </ng-template>
