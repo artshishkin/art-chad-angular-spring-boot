@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {CartStatusDto} from "../../common/cart-status-dto";
 import {CartService} from "../../services/cart.service";
+import {MyShopFormService} from "../../services/my-shop-form.service";
 
 @Component({
   selector: 'app-checkout',
@@ -13,8 +14,12 @@ export class CheckoutComponent implements OnInit {
   checkoutFormGroup: FormGroup;
   cartTotals: CartStatusDto;
 
+  creditCardMonths: number[];
+  creditCardYears: number[];
+
   constructor(private formBuilder: FormBuilder,
-              private cartService: CartService) {
+              private cartService: CartService,
+              private myShopFormService: MyShopFormService) {
   }
 
   ngOnInit(): void {
@@ -22,6 +27,8 @@ export class CheckoutComponent implements OnInit {
     this.cartService.cartStatusSubject.asObservable()
       .subscribe(data => this.cartTotals = data);
     this.cartService.computeCartTotals();
+
+    this.retrieveCreditCardDateArrays();
 
     let customer: FormGroup = this.formBuilder.group({
       firstName: [''],
@@ -80,5 +87,12 @@ export class CheckoutComponent implements OnInit {
       this.checkoutFormGroup.controls.billingAddress.reset();
     }
 
+  }
+
+  private retrieveCreditCardDateArrays() {
+    this.myShopFormService.getCreditCardYears().subscribe(data => this.creditCardYears = data);
+
+    const startMonth = new Date().getMonth() + 1;
+    this.myShopFormService.getCreditCardMonths(startMonth).subscribe(data => this.creditCardMonths = data);
   }
 }
