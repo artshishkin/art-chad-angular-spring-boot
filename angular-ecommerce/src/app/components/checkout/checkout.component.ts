@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 import {CartStatusDto} from "../../common/cart-status-dto";
 import {CartService} from "../../services/cart.service";
 import {MyShopFormService} from "../../services/my-shop-form.service";
+import {Country} from "../../common/country";
 
 @Component({
   selector: 'app-checkout',
@@ -17,6 +18,8 @@ export class CheckoutComponent implements OnInit {
   creditCardMonths: number[];
   creditCardYears: number[];
 
+  countries: Country[] = [];
+
   constructor(private formBuilder: FormBuilder,
               private cartService: CartService,
               private myShopFormService: MyShopFormService) {
@@ -28,7 +31,9 @@ export class CheckoutComponent implements OnInit {
       .subscribe(data => this.cartTotals = data);
     this.cartService.computeCartTotals();
 
-    this.retrieveCreditCardDateArrays();
+    this.populateCreditCardDateArrays();
+
+    this.populateCountries();
 
     let customer: FormGroup = this.formBuilder.group({
       firstName: [''],
@@ -82,14 +87,13 @@ export class CheckoutComponent implements OnInit {
     if ((<HTMLInputElement>event.target)?.checked) {
       this.checkoutFormGroup.controls.billingAddress
         .setValue(this.checkoutFormGroup.controls.shippingAddress.value);
-      console.log(``)
     } else {
       this.checkoutFormGroup.controls.billingAddress.reset();
     }
 
   }
 
-  private retrieveCreditCardDateArrays() {
+  private populateCreditCardDateArrays() {
     this.myShopFormService.getCreditCardYears().subscribe(data => this.creditCardYears = data);
 
     const startMonth = new Date().getMonth() + 1;
@@ -108,4 +112,10 @@ export class CheckoutComponent implements OnInit {
       this.creditCardMonths = data;
     });
   }
+
+  private populateCountries() {
+    this.myShopFormService.getCountries()
+      .subscribe(data => this.countries = data);
+  }
+
 }
