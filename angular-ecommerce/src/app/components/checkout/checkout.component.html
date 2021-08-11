@@ -77,8 +77,8 @@
             <div class="col-md-9">
               <div class="input-space">
                 <select formControlName="state">
-                  <option *ngFor="let region of states.get('shippingAddress')">
-                    {{region.name}}
+                  <option *ngFor="let state of states.get('shippingAddress')" [ngValue]="state">
+                    {{state.name}}
                   </option>
                 </select>
               </div>
@@ -144,8 +144,8 @@
             <div class="col-md-9">
               <div class="input-space">
                 <select formControlName="state">
-                  <option *ngFor="let region of states.get('billingAddress')">
-                    {{region.name}}
+                  <option *ngFor="let state of states.get('billingAddress')" [ngValue]="state">
+                    {{state.name}}
                   </option>
                 </select>
               </div>
