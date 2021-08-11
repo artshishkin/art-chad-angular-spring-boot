@@ -4,6 +4,7 @@ import {CartStatusDto} from "../../common/cart-status-dto";
 import {CartService} from "../../services/cart.service";
 import {MyShopFormService} from "../../services/my-shop-form.service";
 import {Country} from "../../common/country";
+import {State} from "../../common/state";
 
 @Component({
   selector: 'app-checkout',
@@ -19,6 +20,7 @@ export class CheckoutComponent implements OnInit {
   creditCardYears: number[];
 
   countries: Country[] = [];
+  states: Map<string, State[]> = new Map<string, State[]>();
 
   constructor(private formBuilder: FormBuilder,
               private cartService: CartService,
@@ -116,6 +118,15 @@ export class CheckoutComponent implements OnInit {
   private populateCountries() {
     this.myShopFormService.getCountries()
       .subscribe(data => this.countries = data);
+  }
+
+  getStates(formGroupName: string) {
+    const formGroup = this.checkoutFormGroup.get(formGroupName)!;
+    const selectedCountry: Country = formGroup.value.country;
+    this.myShopFormService.getStates(selectedCountry.code).subscribe(states => {
+      this.states.set(formGroupName, states);
+      // formGroup.get("state")?.setValue(states[0]);
+    });
   }
 
 }
