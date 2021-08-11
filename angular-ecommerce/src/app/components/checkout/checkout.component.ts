@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
+import {CartStatusDto} from "../../common/cart-status-dto";
+import {CartService} from "../../services/cart.service";
 
 @Component({
   selector: 'app-checkout',
@@ -9,11 +11,17 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 export class CheckoutComponent implements OnInit {
 
   checkoutFormGroup: FormGroup;
+  cartTotals: CartStatusDto;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder,
+              private cartService: CartService) {
   }
 
   ngOnInit(): void {
+
+    this.cartService.cartStatusSubject.asObservable()
+      .subscribe(data => this.cartTotals = data);
+    this.cartService.computeCartTotals();
 
     let customer: FormGroup = this.formBuilder.group({
       firstName: [''],
