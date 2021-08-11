@@ -2,11 +2,14 @@ package net.shyshkin.study.fullstack.ecommerce.config;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import net.shyshkin.study.fullstack.ecommerce.entity.Country;
 import net.shyshkin.study.fullstack.ecommerce.entity.Product;
 import net.shyshkin.study.fullstack.ecommerce.entity.ProductCategory;
+import net.shyshkin.study.fullstack.ecommerce.entity.State;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
+import org.springframework.data.rest.core.mapping.ExposureConfigurer;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -32,13 +35,8 @@ public class MyDataRestConfig implements RepositoryRestConfigurer {
 
         HttpMethod[] unsupportedActions = {POST, PUT, DELETE};
 
-        List.of(Product.class, ProductCategory.class)
-                .forEach(clazz ->
-                        config.getExposureConfiguration()
-                                .forDomainType(clazz)
-                                .withItemExposure((metdata, httpMethods) -> httpMethods.disable(unsupportedActions))
-                                .withCollectionExposure((metdata, httpMethods) -> httpMethods.disable(unsupportedActions))
-                );
+        List.of(Product.class, ProductCategory.class, Country.class, State.class)
+                .forEach(entityClass -> disableHttpMethods(entityClass, config, unsupportedActions));
 
         if (corsAllowedOrigins != null && !corsAllowedOrigins.isEmpty()) {
             String[] origins = corsAllowedOrigins.toArray(new String[0]);
@@ -47,6 +45,13 @@ public class MyDataRestConfig implements RepositoryRestConfigurer {
         }
 
         exposeIdsForAllEntityClasses(config);
+    }
+
+    private ExposureConfigurer disableHttpMethods(Class<?> entityClass, RepositoryRestConfiguration config, HttpMethod[] unsupportedActions) {
+        return config.getExposureConfiguration()
+                .forDomainType(entityClass)
+                .withItemExposure((metdata, httpMethods) -> httpMethods.disable(unsupportedActions))
+                .withCollectionExposure((metdata, httpMethods) -> httpMethods.disable(unsupportedActions));
     }
 
     private void exposeIdsForAllEntityClasses(RepositoryRestConfiguration config) {
