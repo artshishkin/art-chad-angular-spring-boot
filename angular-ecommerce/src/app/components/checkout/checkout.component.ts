@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {CartStatusDto} from "../../common/cart-status-dto";
 import {CartService} from "../../services/cart.service";
 import {MyShopFormService} from "../../services/my-shop-form.service";
@@ -12,6 +12,8 @@ import {State} from "../../common/state";
   styleUrls: ['./checkout.component.css']
 })
 export class CheckoutComponent implements OnInit {
+
+  private EMAIL_PATTERN: string = '^[a-zA-Z0-9_.%+-]+@[a-zA-Z0-9-]+\\.[a-z]{2,4}$';
 
   checkoutFormGroup: FormGroup;
   cartTotals: CartStatusDto;
@@ -29,18 +31,21 @@ export class CheckoutComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.cartService.cartStatusSubject.asObservable()
-      .subscribe(data => this.cartTotals = data);
-    this.cartService.computeCartTotals();
+    this.populateCartTotals();
 
     this.populateCreditCardDateArrays();
 
     this.populateCountries();
 
+    this.initCheckoutFormGroup();
+
+  }
+
+  private initCheckoutFormGroup() {
     let customer: FormGroup = this.formBuilder.group({
-      firstName: [''],
-      lastName: [''],
-      email: ['']
+      firstName: new FormControl('', [Validators.required, Validators.minLength(2)]),
+      lastName: new FormControl('', [Validators.required, Validators.minLength(2)]),
+      email: new FormControl('', [Validators.required, Validators.pattern(this.EMAIL_PATTERN)])
     });
 
     let shippingAddress: FormGroup = this.formBuilder.group({
@@ -74,7 +79,12 @@ export class CheckoutComponent implements OnInit {
       billingAddress,
       creditCard
     });
+  }
 
+  private populateCartTotals() {
+    this.cartService.cartStatusSubject.asObservable()
+      .subscribe(data => this.cartTotals = data);
+    this.cartService.computeCartTotals();
   }
 
   onSubmit() {
