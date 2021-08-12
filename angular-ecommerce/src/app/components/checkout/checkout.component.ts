@@ -74,10 +74,11 @@ export class CheckoutComponent implements OnInit {
     });
 
     let creditCard: FormGroup = this.formBuilder.group({
-      cardType: [''],
-      nameOnCard: [''],
-      cardNumber: [''],
-      securityCode: [''],
+      cardType: new FormControl('', [Validators.required]),
+      nameOnCard: new FormControl('',
+        [Validators.required, Validators.minLength(2), MyShopValidators.notOnlyWhitespace]),
+      cardNumber: new FormControl('', [Validators.required, Validators.pattern('^\\d{16}$')]),
+      securityCode: new FormControl('', [Validators.required, Validators.pattern('^\\d{3}$')]),
       expirationMonth: [''],
       expirationYear: ['']
     });
@@ -140,6 +141,22 @@ export class CheckoutComponent implements OnInit {
 
   get billingAddressZipCode() {
     return this.checkoutFormGroup?.get('billingAddress.zipCode')!;
+  }
+
+  get creditCardType() {
+    return this.checkoutFormGroup?.get('creditCard.cardType')!;
+  }
+
+  get creditCardNameOnCard() {
+    return this.checkoutFormGroup?.get('creditCard.nameOnCard')!;
+  }
+
+  get creditCardNumber() {
+    return this.checkoutFormGroup?.get('creditCard.cardNumber')!;
+  }
+
+  get creditCardSecurityCode() {
+    return this.checkoutFormGroup?.get('creditCard.securityCode')!;
   }
 
   private populateCartTotals() {
