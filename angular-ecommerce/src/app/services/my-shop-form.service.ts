@@ -13,7 +13,6 @@ export class MyShopFormService {
 
   private baseUrl = `${environment.backendServerUrl}/api`;
   private countriesUrl = `${this.baseUrl}/countries`;
-  private statesUrl = `${this.baseUrl}/states`;
 
   constructor(private httpClient: HttpClient) {
   }
@@ -45,9 +44,9 @@ export class MyShopFormService {
       .pipe(map(data => data._embedded.countries));
   }
 
-  getStates(countryCode: string): Observable<State[]> {
-    let searchUrl = `${this.statesUrl}/search/by-country-code?code=${countryCode}`;
-    return this.httpClient.get<StatesGetResponse>(searchUrl)
+  getStates(countryId: number): Observable<State[]> {
+    let statesUrl = `${this.countriesUrl}/${countryId}/states`;
+    return this.httpClient.get<StatesGetResponse>(statesUrl)
       .pipe(map(data => data._embedded.states));
   }
 }
