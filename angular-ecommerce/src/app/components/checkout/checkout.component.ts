@@ -5,6 +5,7 @@ import {CartService} from "../../services/cart.service";
 import {MyShopFormService} from "../../services/my-shop-form.service";
 import {Country} from "../../common/country";
 import {State} from "../../common/state";
+import {MyShopValidators} from "../../validators/my-shop-validators";
 
 @Component({
   selector: 'app-checkout',
@@ -43,8 +44,10 @@ export class CheckoutComponent implements OnInit {
 
   private initCheckoutFormGroup() {
     let customer: FormGroup = this.formBuilder.group({
-      firstName: new FormControl('', [Validators.required, Validators.minLength(2)]),
-      lastName: new FormControl('', [Validators.required, Validators.minLength(2)]),
+      firstName: new FormControl('',
+        [Validators.required, Validators.minLength(2), MyShopValidators.notOnlyWhitespace]),
+      lastName: new FormControl('',
+        [Validators.required, Validators.minLength(2), MyShopValidators.notOnlyWhitespace]),
       email: new FormControl('', [Validators.required, Validators.pattern(this.EMAIL_PATTERN)])
     });
 
