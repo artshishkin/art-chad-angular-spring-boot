@@ -11,7 +11,7 @@ export class CartService {
   private cart: Map<number, CartItem> = new Map<number, CartItem>();
 
   cartTotalsSubject: Subject<CartTotalsDto> = new BehaviorSubject<CartTotalsDto>({totalPrice: 0, totalQuantity: 0});
-  cartItemsSubject: Subject<CartItem[]> = new Subject<CartItem[]>();
+  cartItemsSubject: Subject<CartItem[]> = new BehaviorSubject<CartItem[]>([]);
 
   constructor() {
   }
@@ -62,7 +62,7 @@ export class CartService {
     this.computeCartTotals();
   }
 
-  updateCartItemsSubject() {
+  private updateCartItemsSubject() {
     this.cartItemsSubject.next(this.getCartItems());
   }
 }

@@ -23,7 +23,6 @@ export class CartDetailsComponent implements OnInit {
   private listCartDetails() {
     this.cartService.cartItemsSubject.asObservable().subscribe(data => this.cartItems = data);
     this.cartService.cartTotalsSubject.asObservable().subscribe(data => this.cartTotals = data);
-    this.cartService.updateCartItemsSubject();
   }
 
   incrementQuantity(cartItem: CartItem) {
