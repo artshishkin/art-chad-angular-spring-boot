@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {CartService} from "../../services/cart.service";
 import {CartItem} from "../../common/cart-item";
-import {CartStatusDto} from "../../common/cart-status-dto";
+import {CartTotalsDto} from "../../common/cart-totals-dto";
 
 @Component({
   selector: 'app-cart-details',
@@ -11,7 +11,7 @@ import {CartStatusDto} from "../../common/cart-status-dto";
 export class CartDetailsComponent implements OnInit {
 
   cartItems: CartItem[] = [];
-  cartTotals: CartStatusDto;
+  cartTotals: CartTotalsDto;
 
   constructor(private cartService: CartService) {
   }
@@ -22,8 +22,7 @@ export class CartDetailsComponent implements OnInit {
 
   private listCartDetails() {
     this.cartService.cartItemsSubject.asObservable().subscribe(data => this.cartItems = data);
-    this.cartService.cartStatusSubject.asObservable().subscribe(data => this.cartTotals = data);
-    this.cartService.computeCartTotals();
+    this.cartService.cartTotalsSubject.asObservable().subscribe(data => this.cartTotals = data);
     this.cartService.updateCartItemsSubject();
   }
 

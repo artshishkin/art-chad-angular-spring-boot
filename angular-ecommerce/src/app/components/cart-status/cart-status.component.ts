@@ -20,7 +20,7 @@ export class CartStatusComponent implements OnInit {
 
   private updateCartStatus() {
     this.cartService
-      .cartStatusSubject.asObservable()
+      .cartTotalsSubject.asObservable()
       .subscribe(data => {
         this.totalPrice = data.totalPrice;
         this.totalQuantity = data.totalQuantity;

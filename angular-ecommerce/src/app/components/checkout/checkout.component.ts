@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {CartStatusDto} from "../../common/cart-status-dto";
+import {CartTotalsDto} from "../../common/cart-totals-dto";
 import {CartService} from "../../services/cart.service";
 import {MyShopFormService} from "../../services/my-shop-form.service";
 import {Country} from "../../common/country";
@@ -17,7 +17,7 @@ export class CheckoutComponent implements OnInit {
   private EMAIL_PATTERN: string = '^[a-zA-Z0-9_.%+-]+@[a-zA-Z0-9-]+\\.[a-z]{2,4}$';
 
   checkoutFormGroup: FormGroup;
-  cartTotals: CartStatusDto;
+  cartTotals: CartTotalsDto;
 
   creditCardMonths: number[];
   creditCardYears: number[];
@@ -32,7 +32,7 @@ export class CheckoutComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.populateCartTotals();
+    this.reviewCartDetails();
 
     this.populateCreditCardDateArrays();
 
@@ -159,10 +159,9 @@ export class CheckoutComponent implements OnInit {
     return this.checkoutFormGroup?.get('creditCard.securityCode')!;
   }
 
-  private populateCartTotals() {
-    this.cartService.cartStatusSubject.asObservable()
+  private reviewCartDetails() {
+    this.cartService.cartTotalsSubject.asObservable()
       .subscribe(data => this.cartTotals = data);
-    this.cartService.computeCartTotals();
   }
 
   onSubmit() {

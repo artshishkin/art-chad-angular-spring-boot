@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {CartItem} from "../common/cart-item";
-import {Subject} from "rxjs";
-import {CartStatusDto} from "../common/cart-status-dto";
+import {BehaviorSubject, Subject} from "rxjs";
+import {CartTotalsDto} from "../common/cart-totals-dto";
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,7 @@ export class CartService {
 
   private cart: Map<number, CartItem> = new Map<number, CartItem>();
 
-  cartStatusSubject: Subject<CartStatusDto> = new Subject<CartStatusDto>();
+  cartTotalsSubject: Subject<CartTotalsDto> = new BehaviorSubject<CartTotalsDto>({totalPrice: 0, totalQuantity: 0});
   cartItemsSubject: Subject<CartItem[]> = new Subject<CartItem[]>();
 
   constructor() {
@@ -28,7 +28,7 @@ export class CartService {
     this.computeCartTotals();
   }
 
-  computeCartTotals() {
+  private computeCartTotals() {
 
     let totalPriceValue: number = 0;
     let totalQuantityValue: number = 0;
@@ -39,7 +39,7 @@ export class CartService {
     }
     console.log(`Total price: ${totalPriceValue.toFixed(2)}, total quantity: ${totalQuantityValue}`);
 
-    this.cartStatusSubject.next({totalPrice: totalPriceValue, totalQuantity: totalQuantityValue})
+    this.cartTotalsSubject.next({totalPrice: totalPriceValue, totalQuantity: totalQuantityValue})
   }
 
   private getCartItems(): CartItem[] {
