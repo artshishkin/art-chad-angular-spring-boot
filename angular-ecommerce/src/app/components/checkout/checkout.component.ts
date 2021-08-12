@@ -63,11 +63,14 @@ export class CheckoutComponent implements OnInit {
     });
 
     let billingAddress: FormGroup = this.formBuilder.group({
-      country: [''],
-      street: [''],
-      city: [''],
-      state: [''],
-      zipCode: ['']
+      country: new FormControl('', [Validators.required]),
+      street: new FormControl('',
+        [Validators.required, Validators.minLength(2), MyShopValidators.notOnlyWhitespace]),
+      city: new FormControl('',
+        [Validators.required, Validators.minLength(2), MyShopValidators.notOnlyWhitespace]),
+      state: new FormControl('', [Validators.required]),
+      zipCode: new FormControl('',
+        [Validators.required, Validators.minLength(2), MyShopValidators.notOnlyWhitespace]),
     });
 
     let creditCard: FormGroup = this.formBuilder.group({
@@ -117,6 +120,26 @@ export class CheckoutComponent implements OnInit {
 
   get shippingAddressZipCode() {
     return this.checkoutFormGroup?.get('shippingAddress.zipCode')!;
+  }
+
+  get billingAddressStreet() {
+    return this.checkoutFormGroup?.get('billingAddress.street')!;
+  }
+
+  get billingAddressCountry() {
+    return this.checkoutFormGroup?.get('billingAddress.country')!;
+  }
+
+  get billingAddressCity() {
+    return this.checkoutFormGroup?.get('billingAddress.city')!;
+  }
+
+  get billingAddressState() {
+    return this.checkoutFormGroup?.get('billingAddress.state')!;
+  }
+
+  get billingAddressZipCode() {
+    return this.checkoutFormGroup?.get('billingAddress.zipCode')!;
   }
 
   private populateCartTotals() {
