@@ -57,6 +57,13 @@
                 <div *ngIf="email.invalid && (email.dirty || email.touched)"
                      class="alert alert-danger mt-1">
 
+                  <div *ngIf="email.errors?.required">
+                    Email is mandatory
+                  </div>
+                  <div *ngIf="email.errors?.pattern">
+                    Please provide correct Email address
+                  </div>
+
                   <div *ngIf="email.errors">
                     {{ email.errors | json}}
                   </div>
