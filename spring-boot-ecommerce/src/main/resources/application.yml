@@ -26,3 +26,5 @@ spring:
       on-profile: local
   datasource:
     url: jdbc:mysql://localhost:23306/full-stack-ecommerce
+  jpa:
+    show-sql: true
