@@ -27,14 +27,15 @@ public class Order {
     private BigDecimal totalPrice;
     private Integer totalQuantity;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "billing_address_id")
     private Address billingAddress;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Address shippingAddress;
 
     @ManyToOne
+    @JoinColumn(name = "customer_id")
     private Customer customer;
 
     private String status;

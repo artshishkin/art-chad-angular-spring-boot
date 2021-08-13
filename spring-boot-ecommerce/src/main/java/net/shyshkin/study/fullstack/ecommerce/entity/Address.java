@@ -22,4 +22,8 @@ public class Address {
     private String street;
     private String zipCode;
 
+    @OneToOne
+    @PrimaryKeyJoinColumn
+    private Order order;
+
 }
