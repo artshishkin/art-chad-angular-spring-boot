@@ -8,6 +8,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -44,8 +45,13 @@ public class Order {
     @UpdateTimestamp
     private LocalDateTime lastUpdated;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "order_id")
-    private Set<OrderItem> items;
+    private Set<OrderItem> orderItems = new HashSet<>();
+
+    public void addOrderItem(OrderItem orderItem) {
+        if (orderItem != null)
+            orderItems.add(orderItem);
+    }
 
 }
