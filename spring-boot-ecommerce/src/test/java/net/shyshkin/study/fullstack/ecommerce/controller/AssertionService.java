@@ -18,7 +18,7 @@ public class AssertionService {
     CustomerRepository customerRepository;
 
     @Transactional
-    public void assertThatPurchaseSuccessfullyPopulated(long initialSize, PurchaseDto purchase) {
+    public void assertThatPurchaseSuccessfullyPopulated(long initialSize, PurchaseDto purchase, String orderTrackingNumber) {
         List<Customer> customers = customerRepository.findAll();
         assertThat(customers)
                 .hasSize((int) (initialSize + 1))
@@ -29,6 +29,7 @@ public class AssertionService {
                         .hasFieldOrPropertyWithValue("email", purchase.getCustomer().getEmail())
                         .satisfies(c -> assertThat(c.getOrders())
                                 .hasSize(1)
+                                .allSatisfy(order -> assertThat(order.getOrderTrackingNumber()).isEqualTo(orderTrackingNumber))
                                 .allSatisfy(order -> assertThat(order.getOrderItems())
                                         .hasSize(purchase.getOrderItems().size())
                                         .allSatisfy(orderItem -> assertThat(orderItem)

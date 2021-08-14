@@ -59,8 +59,8 @@ class CheckoutControllerTest {
                 .isNotNull()
                 .hasNoNullFieldsOrProperties()
                 .satisfies(dto -> assertThat(dto.getOrderTrackingNumber()).isNotBlank());
-
-        assertionService.assertThatPurchaseSuccessfullyPopulated(initialSize, purchase);
+        String orderTrackingNumber = responseEntity.getBody().getOrderTrackingNumber();
+        assertionService.assertThatPurchaseSuccessfullyPopulated(initialSize, purchase, orderTrackingNumber);
     }
 
     private PurchaseDto generateRandomPurchase() {
