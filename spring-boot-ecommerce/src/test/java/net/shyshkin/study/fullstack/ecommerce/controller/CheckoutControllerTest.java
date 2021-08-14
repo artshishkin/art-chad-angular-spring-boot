@@ -1,10 +1,12 @@
 package net.shyshkin.study.fullstack.ecommerce.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import net.shyshkin.study.fullstack.ecommerce.dto.*;
-import net.shyshkin.study.fullstack.ecommerce.entity.Customer;
 import net.shyshkin.study.fullstack.ecommerce.repositotry.CustomerRepository;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -12,7 +14,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -31,13 +32,22 @@ class CheckoutControllerTest {
     @Autowired
     CustomerRepository customerRepository;
 
-    @Test
-    void checkout() {
+    @Autowired
+    ObjectMapper objectMapper;
+
+    @Autowired
+    AssertionService assertionService;
+
+    @ParameterizedTest
+    @ValueSource(strings = {"random", "json"})
+    void checkout(String purchaseGenerationType) {
         //given
         long initialSize = customerRepository.count();
 
-        PurchaseDto purchase = generateRandomPurchase();
-
+        final PurchaseDto purchase =
+                "random".equals(purchaseGenerationType) ? generateRandomPurchase() :
+                        "json".equals(purchaseGenerationType) ? generatePurchaseFromJson() :
+                                null;
         //when
         var responseEntity = testRestTemplate
                 .postForEntity("/api/checkout/purchase", purchase, PurchaseResponseDto.class);
@@ -50,21 +60,7 @@ class CheckoutControllerTest {
                 .hasNoNullFieldsOrProperties()
                 .satisfies(dto -> assertThat(dto.getOrderTrackingNumber()).isNotBlank());
 
-        List<Customer> customers = customerRepository.findAll();
-        assertThat(customers)
-                .hasSize((int) (initialSize + 1))
-                .anySatisfy(customer -> assertThat(customer)
-                        .hasNoNullFieldsOrProperties()
-                        .hasFieldOrPropertyWithValue("firstName", purchase.getCustomer().getFirstName())
-                        .hasFieldOrPropertyWithValue("lastName", purchase.getCustomer().getLastName())
-                        .hasFieldOrPropertyWithValue("email", purchase.getCustomer().getEmail())
-                        .satisfies(c -> assertThat(c.getOrders())
-                                .hasSize(1)
-                                .allSatisfy(order -> assertThat(order.getOrderItems())
-                                        .hasSize(3)
-                                        .allSatisfy(orderItem -> assertThat(orderItem)
-                                                .hasNoNullFieldsOrProperties())))
-                );
+        assertionService.assertThatPurchaseSuccessfullyPopulated(initialSize, purchase);
     }
 
     private PurchaseDto generateRandomPurchase() {
@@ -113,4 +109,51 @@ class CheckoutControllerTest {
 
         return purchase;
     }
+
+    @SneakyThrows
+    private PurchaseDto generatePurchaseFromJson() {
+
+        String samplePurchaseJson = "{\n" +
+                "   \"customer\":{\n" +
+                "      \"firstName\":\"afasa\",\n" +
+                "      \"lastName\":\"afasa\",\n" +
+                "      \"email\":\"afasa@test.com\"\n" +
+                "   },\n" +
+                "   \"shippingAddress\":{\n" +
+                "      \"street\":\"afasa\",\n" +
+                "      \"city\":\"afasa\",\n" +
+                "      \"state\":\"Alberta\",\n" +
+                "      \"country\":\"Canada\",\n" +
+                "      \"zipCode\":\"afasa\"\n" +
+                "   },\n" +
+                "   \"billingAddress\":{\n" +
+                "      \"street\":\"fsfsf\",\n" +
+                "      \"city\":\"sfdsf\",\n" +
+                "      \"state\":\"Acre\",\n" +
+                "      \"country\":\"Brazil\",\n" +
+                "      \"zipCode\":\"19111\"\n" +
+                "   },\n" +
+                "   \"order\":{\n" +
+                "      \"totalPrice\":36.98,\n" +
+                "      \"totalQuantity\":2\n" +
+                "   },\n" +
+                "   \"orderItems\":[\n" +
+                "      {\n" +
+                "         \"imageUrl\":\"assets/images/products/coffeemugs/coffeemug-luv2code-1000.png\",\n" +
+                "         \"quantity\":1,\n" +
+                "         \"unitPrice\":18.99,\n" +
+                "         \"productId\":26\n" +
+                "      },\n" +
+                "      {\n" +
+                "         \"imageUrl\":\"assets/images/products/mousepads/mousepad-luv2code-1000.png\",\n" +
+                "         \"quantity\":1,\n" +
+                "         \"unitPrice\":17.99,\n" +
+                "         \"productId\":51\n" +
+                "      }\n" +
+                "   ]\n" +
+                "}";
+
+        return objectMapper.readValue(samplePurchaseJson, PurchaseDto.class);
+    }
+
 }
