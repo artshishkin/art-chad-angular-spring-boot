@@ -9,6 +9,5 @@ public class OrderDto {
 
     private BigDecimal totalPrice;
     private Integer totalQuantity;
-    private String status;
 
 }

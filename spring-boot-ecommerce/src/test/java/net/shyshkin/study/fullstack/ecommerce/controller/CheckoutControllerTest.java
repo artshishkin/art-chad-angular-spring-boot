@@ -70,7 +70,6 @@ class CheckoutControllerTest {
         //order
         OrderDto order = new OrderDto();
         order.setTotalQuantity(3);
-        order.setStatus("OK");
         order.setTotalPrice(new BigDecimal("123.45"));
 
         purchase.setOrder(order);
