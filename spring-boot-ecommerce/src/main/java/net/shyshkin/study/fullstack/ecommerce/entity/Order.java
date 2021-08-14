@@ -32,6 +32,7 @@ public class Order {
     private Address billingAddress;
 
     @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn
     private Address shippingAddress;
 
     @ManyToOne

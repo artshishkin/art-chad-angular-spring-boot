@@ -2,6 +2,7 @@ package net.shyshkin.study.fullstack.ecommerce.entity;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -24,6 +25,7 @@ public class Address {
 
     @OneToOne
     @PrimaryKeyJoinColumn
+    @ToString.Exclude
     private Order order;
 
 }
