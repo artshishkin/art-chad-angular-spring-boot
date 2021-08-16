@@ -174,4 +174,7 @@
     -  Create
 -  Client ID: `0oa1h4bjhbt0eJHgB5d7`
 -  Okta domain: `dev-83879807.okta.com`    
-            
+-  Issue Uri will be
+    -  https://dev-83879807.okta.com/oauth2/default
+    -  Okta Console -> Applications -> SocialLoginExample -> Sign On -> OpenID Connect ID Token -> Issuer
+    -  ` + /oauth2/default`            
