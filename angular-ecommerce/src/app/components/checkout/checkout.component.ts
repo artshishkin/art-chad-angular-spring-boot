@@ -216,9 +216,18 @@ export class CheckoutComponent implements OnInit {
       purchase.orderItems = orderItems;
       purchase.order = order;
 
-      // call REST API via the CheckoutService
-
       console.log(purchase);
+
+      // call REST API via the CheckoutService
+      this.checkoutService.placeOrder(purchase).subscribe(
+        response => {
+          alert(`Your order has been received.\nOrder tracking number: ${response.orderTrackingNumber}`);
+          // reset cart
+          this.resetCart();
+        },
+        error =>{
+          alert(`There was an error: ${error.message}`);
+        });
 
     });
 
@@ -275,4 +284,15 @@ export class CheckoutComponent implements OnInit {
     });
   }
 
+  private resetCart() {
+
+    //reset cart data
+    this.cartService.resetCart();
+
+    //reset form data
+    this.checkoutFormGroup.reset();
+
+    //navigate back to product page
+    this.router.navigateByUrl("/products");
+  }
 }

@@ -65,4 +65,10 @@ export class CartService {
   private updateCartItemsSubject() {
     this.cartItemsSubject.next(this.getCartItems());
   }
+
+  resetCart() {
+    this.cart.clear();
+    this.updateCartItemsSubject();
+    this.computeCartTotals();
+  }
 }
