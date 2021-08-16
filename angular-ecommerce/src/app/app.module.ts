@@ -16,6 +16,7 @@ import {CartDetailsComponent} from './components/cart-details/cart-details.compo
 import {CheckoutComponent} from './components/checkout/checkout.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import {CartItemToOrderItemPipe} from './pipes/cart-item-to-order-item.pipe';
+import {LoginComponent} from './components/login/login.component';
 
 const routes: Routes = [
   {path: 'search/:keyword', component: ProductListComponent},
@@ -39,7 +40,8 @@ const routes: Routes = [
     CartStatusComponent,
     CartDetailsComponent,
     CheckoutComponent,
-    CartItemToOrderItemPipe
+    CartItemToOrderItemPipe,
+    LoginComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
