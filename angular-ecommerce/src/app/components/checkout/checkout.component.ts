@@ -12,6 +12,7 @@ import {Order} from "../../common/dto/order";
 import {OrderItem} from "../../common/dto/order-item";
 import {Purchase} from "../../common/dto/purchase";
 import {CartItemToOrderItemPipe} from "../../pipes/cart-item-to-order-item.pipe";
+import {CartItem} from "../../common/cart-item";
 
 @Component({
   selector: 'app-checkout',
@@ -30,6 +31,7 @@ export class CheckoutComponent implements OnInit {
 
   countries: Country[] = [];
   states: Map<string, State[]> = new Map<string, State[]>();
+  private cartItems: CartItem[] = [];
 
   constructor(private formBuilder: FormBuilder,
               private cartService: CartService,
@@ -40,6 +42,8 @@ export class CheckoutComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.fetchCartItems();
 
     this.reviewCartDetails();
 
@@ -173,6 +177,11 @@ export class CheckoutComponent implements OnInit {
       .subscribe(data => this.cartTotals = data);
   }
 
+  private fetchCartItems(): void {
+    this.cartService.cartItemsSubject
+      .asObservable().subscribe(cartItems => this.cartItems = cartItems);
+  }
+
   onSubmit() {
     console.log('Customer submitted order');
 
@@ -188,50 +197,43 @@ export class CheckoutComponent implements OnInit {
     order.totalQuantity = this.cartTotals.totalQuantity;
 
     // get cart items
-    this.cartService.cartItemsSubject
-      .asObservable().subscribe(cartItems => {
+    // create orderItems for cartItems
+    const orderItems: OrderItem[] = this.cartItems.map(item => this.cartItemToOrderItemPipe.transform(item));
 
-      // create orderItems for cartItems
-      const orderItems: OrderItem[] = cartItems.map(item => this.cartItemToOrderItemPipe.transform(item));
+    // set up purchase
+    const purchase: Purchase = new Purchase();
 
-      // set up purchase
-      const purchase: Purchase = new Purchase();
+    // populate purchase - customer
+    purchase.customer = this.checkoutFormGroup.controls['customer'].value;
 
-      // populate purchase - customer
-      purchase.customer = this.checkoutFormGroup.controls['customer'].value;
+    // populate purchase - shipping address
+    const shippingAddress = this.checkoutFormGroup.controls['shippingAddress'].value;
+    shippingAddress.country = this.shippingAddressCountry.value.name;
+    shippingAddress.state = this.shippingAddressState.value.name;
+    purchase.shippingAddress = shippingAddress;
 
-      // populate purchase - shipping address
-      const shippingAddress = this.checkoutFormGroup.controls['shippingAddress'].value;
-      shippingAddress.country = this.shippingAddressCountry.value.name;
-      shippingAddress.state = this.shippingAddressState.value.name;
-      purchase.shippingAddress = shippingAddress;
+    // populate purchase - billing address
+    const billingAddress = this.checkoutFormGroup.controls['billingAddress'].value;
+    billingAddress.country = this.billingAddressCountry.value.name;
+    billingAddress.state = this.billingAddressState.value.name;
+    purchase.billingAddress = billingAddress;
 
-      // populate purchase - billing address
-      const billingAddress = this.checkoutFormGroup.controls['billingAddress'].value;
-      billingAddress.country = this.billingAddressCountry.value.name;
-      billingAddress.state = this.billingAddressState.value.name;
-      purchase.billingAddress = billingAddress;
+    // populate purchase - order and orderItems
+    purchase.orderItems = orderItems;
+    purchase.order = order;
 
-      // populate purchase - order and orderItems
-      purchase.orderItems = orderItems;
-      purchase.order = order;
+    console.log(purchase);
 
-      console.log(purchase);
-
-      // call REST API via the CheckoutService
-      this.checkoutService.placeOrder(purchase).subscribe(
-        response => {
-          alert(`Your order has been received.\nOrder tracking number: ${response.orderTrackingNumber}`);
-          // reset cart
-          this.resetCart();
-        },
-        error =>{
-          alert(`There was an error: ${error.message}`);
-        });
-
-    });
-
-
+    // call REST API via the CheckoutService
+    this.checkoutService.placeOrder(purchase).subscribe(
+      response => {
+        alert(`Your order has been received.\nOrder tracking number: ${response.orderTrackingNumber}`);
+        // reset cart
+        this.resetCart();
+      },
+      error => {
+        alert(`There was an error: ${error.message}`);
+      });
   }
 
   copyShippingAddressToBillingAddress(event: MouseEvent) {
