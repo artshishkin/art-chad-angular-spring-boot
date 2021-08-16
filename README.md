@@ -177,4 +177,19 @@
 -  Issue Uri will be
     -  https://dev-83879807.okta.com/oauth2/default
     -  Okta Console -> Applications -> SocialLoginExample -> Sign On -> OpenID Connect ID Token -> Issuer
-    -  ` + /oauth2/default`            
+    -  ` + /oauth2/default`
+
+#####  227. Security - Login/Logout - Coding - Install Okta Dependencies
+
+-  [Okta Sign-In Widget and Angular](https://developer.okta.com/code/angular/okta_angular_sign-in_widget/#create-an-angular-app)
+    -  `npm install @okta/okta-signin-widget`
+    -  `npm install @okta/okta-angular`
+-  Ensure everything is OK
+    -  `angular-ecommerce/node_modules/@okta/okta-angular` - exists
+    -  `angular-ecommerce/node_modules/@okta/okta-signin-widget` - exists
+-  Provide support of okta css    
+    -  `angular-ecommerce/node_modules/@okta/okta-signin-widget/dist/css/okta-sign-in.min.css`
+    -  modify `angular-ecommerce/angular.json` 
+
+                
+                
