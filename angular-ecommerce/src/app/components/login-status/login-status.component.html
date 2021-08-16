@@ -1,17 +1,11 @@
-<div class="row">
-  <div class="col-8">
-    <div *ngIf="isAuthenticated && userFullName">Welcome back {{userFullName}}</div>
+<div class="login-status-header">
+  <div *ngIf="isAuthenticated && userFullName" class="login-status-user-info">
+    Welcome back {{userFullName}}!
   </div>
-  <div class="col-4">
-    <div *ngIf="isAuthenticated">
-      <button class="btn btn-primary">Login</button>
-    </div>
 
-    <div *ngIf="!isAuthenticated">
-      <button class="btn btn-primary">Logout</button>
-    </div>
+  <button *ngIf="!isAuthenticated" routerLink="/login" class="security-btn">Login</button>
 
-  </div>
+  <button *ngIf="isAuthenticated" (click)="logout()" class="security-btn">Logout</button>
 
 </div>
 
