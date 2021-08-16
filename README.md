@@ -160,4 +160,18 @@
 -  `ng add @angular/localize`
 -  `npm install @ng-bootstrap/ng-bootstrap`
 
+####  Section 25: Release 3.0 - Security - Login/Logout
+
+#####  225. Security - Login/Logout - Coding - Create OIDC Client App
+
+-  Okta Console -> Applications -> Create App Integration
+-  OIDC - OpenID Connect -> Single-Page Application
+-  Settings:
+    -  App integration name : `My Art2Shop App`
+    -  Sign-in redirect URIs: `http://localhost:4200/login/callback`
+    -  Sign-out redirect URIs: `http://localhost:4200`
+    -  Trusted Origins -> Base URIs : `http://localhost:4200` 
+    -  Create
+-  Client ID: `0oa1h4bjhbt0eJHgB5d7`
+-  Okta domain: `dev-83879807.okta.com`    
             
