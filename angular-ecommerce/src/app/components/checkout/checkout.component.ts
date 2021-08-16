@@ -12,6 +12,8 @@ import {Order} from "../../common/dto/order";
 import {OrderItem} from "../../common/dto/order-item";
 import {Purchase} from "../../common/dto/purchase";
 import {CartItemToOrderItemPipe} from "../../pipes/cart-item-to-order-item.pipe";
+import {Customer} from "../../common/dto/customer";
+import {Address} from "../../common/dto/address";
 
 @Component({
   selector: 'app-checkout',
@@ -198,14 +200,33 @@ export class CheckoutComponent implements OnInit {
       const purchase: Purchase = new Purchase();
 
       // populate purchase - customer
+      const customer = new Customer();
+      customer.firstName = this.firstName.value;
+      customer.lastName = this.lastName.value;
+      customer.email = this.email.value;
 
       // populate purchase - shipping address
+      const shippingAddress = new Address();
+      shippingAddress.city = this.shippingAddressCity.value;
+      shippingAddress.country = this.shippingAddressCountry.value.name;
+      shippingAddress.state = this.shippingAddressState.value.name;
+      shippingAddress.street = this.shippingAddressStreet.value;
+      shippingAddress.zipCode = this.shippingAddressZipCode.value;
 
       // populate purchase - billing address
+      const billingAddress = new Address();
+      billingAddress.city = this.billingAddressCity.value;
+      billingAddress.country = this.billingAddressCountry.value.name;
+      billingAddress.state = this.billingAddressState.value.name;
+      billingAddress.street = this.billingAddressStreet.value;
+      billingAddress.zipCode = this.billingAddressZipCode.value;
 
       // populate purchase - order and orderItems
       purchase.orderItems = orderItems;
       purchase.order = order;
+      purchase.shippingAddress = shippingAddress;
+      purchase.billingAddress = billingAddress;
+      purchase.customer = customer;
 
       // call REST API via the CheckoutService
 
