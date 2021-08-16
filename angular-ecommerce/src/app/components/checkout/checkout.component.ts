@@ -8,6 +8,10 @@ import {State} from "../../common/state";
 import {MyShopValidators} from "../../validators/my-shop-validators";
 import {CheckoutService} from "../../services/checkout.service";
 import {Router} from "@angular/router";
+import {Order} from "../../common/dto/order";
+import {OrderItem} from "../../common/dto/order-item";
+import {Purchase} from "../../common/dto/purchase";
+import {CartItemToOrderItemPipe} from "../../pipes/cart-item-to-order-item.pipe";
 
 @Component({
   selector: 'app-checkout',
@@ -31,7 +35,8 @@ export class CheckoutComponent implements OnInit {
               private cartService: CartService,
               private myShopFormService: MyShopFormService,
               private checkoutService: CheckoutService,
-              private router: Router) {
+              private router: Router,
+              private cartItemToOrderItemPipe: CartItemToOrderItemPipe) {
   }
 
   ngOnInit(): void {
@@ -178,22 +183,36 @@ export class CheckoutComponent implements OnInit {
     }
 
     // set up order
+    const order = new Order();
+    order.totalPrice = this.cartTotals.totalPrice;
+    order.totalQuantity = this.cartTotals.totalQuantity;
 
     // get cart items
+    this.cartService.cartItemsSubject
+      .asObservable().subscribe(cartItems => {
 
-    // create orderItems for cartItems
+      // create orderItems for cartItems
+      const orderItems: OrderItem[] = cartItems.map(item => this.cartItemToOrderItemPipe.transform(item));
 
-    // set up purchase
+      // set up purchase
+      const purchase: Purchase = new Purchase();
 
-    // populate purchase - customer
+      // populate purchase - customer
 
-    // populate purchase - shipping address
+      // populate purchase - shipping address
 
-    // populate purchase - billing address
+      // populate purchase - billing address
 
-    // populate purchase - order and orderItems
+      // populate purchase - order and orderItems
+      purchase.orderItems = orderItems;
+      purchase.order = order;
 
-    // call REST API via the CheckoutService
+      // call REST API via the CheckoutService
+
+      console.log(purchase);
+
+    });
+
 
   }
 

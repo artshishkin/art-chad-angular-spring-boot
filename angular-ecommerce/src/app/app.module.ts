@@ -48,7 +48,7 @@ const routes: Routes = [
     NgbModule,
     ReactiveFormsModule
   ],
-  providers: [ProductService],
+  providers: [ProductService, CartItemToOrderItemPipe],
   bootstrap: [AppComponent]
 })
 export class AppModule {
