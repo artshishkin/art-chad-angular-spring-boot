@@ -36,7 +36,9 @@ export class LoginComponent implements OnInit {
       },
       (response: any) => {
         if (response.status === 'SUCCESS') {
-          this.oktaSignin.signInWithRedirect();
+          console.log(`Successfully received token from Auth server`);
+          console.log(response);
+          this.oktaAuthService.signInWithRedirect();
         }
       },
       (error: any) => {

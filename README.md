@@ -191,5 +191,11 @@
     -  `angular-ecommerce/node_modules/@okta/okta-signin-widget/dist/css/okta-sign-in.min.css`
     -  modify `angular-ecommerce/angular.json` 
 
-                
+#####  Fixing bug with Login/Logout
+
+-  Sign-out redirect URIs: `http://localhost:4200`               
+
+
+
+
                 
