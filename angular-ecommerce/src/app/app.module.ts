@@ -19,7 +19,7 @@ import {CartItemToOrderItemPipe} from './pipes/cart-item-to-order-item.pipe';
 import {LoginComponent} from './components/login/login.component';
 import {LoginStatusComponent} from './components/login-status/login-status.component';
 
-import {OktaCallbackComponent} from "@okta/okta-angular";
+import {OKTA_CONFIG, OktaAuthModule, OktaCallbackComponent} from "@okta/okta-angular";
 import myAppConfig from './config/my-app-config';
 
 const oktaConfig = Object.assign({
@@ -64,9 +64,10 @@ const routes: Routes = [
     BrowserModule,
     HttpClientModule,
     NgbModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    OktaAuthModule
   ],
-  providers: [ProductService, CartItemToOrderItemPipe],
+  providers: [ProductService, CartItemToOrderItemPipe, {provide: OKTA_CONFIG, useValue: oktaConfig}],
   bootstrap: [AppComponent]
 })
 export class AppModule {
