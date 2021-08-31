@@ -19,12 +19,12 @@ import {CartItemToOrderItemPipe} from './pipes/cart-item-to-order-item.pipe';
 import {LoginComponent} from './components/login/login.component';
 import {LoginStatusComponent} from './components/login-status/login-status.component';
 
-import {OKTA_CONFIG, OktaAuthModule, OktaCallbackComponent} from "@okta/okta-angular";
+import {OKTA_CONFIG, OktaAuthGuard, OktaAuthModule, OktaCallbackComponent} from "@okta/okta-angular";
 import myAppConfig from './config/my-app-config';
 import {MembersPageComponent} from './components/members-page/members-page.component';
 
 const oktaConfig = Object.assign({
-  onAuthRequired: (injector: Injector) => {
+  onAuthRequired: (oktaAuth: OktaAuthGuard, injector: Injector) => {
     const router = injector.get(Router);
 
     // Redirect the user to your custom login page
@@ -33,6 +33,7 @@ const oktaConfig = Object.assign({
 }, myAppConfig.oidc);
 
 const routes: Routes = [
+  {path: 'members', component: MembersPageComponent, canActivate: [OktaAuthGuard]},
   {path: 'login/callback', component: OktaCallbackComponent},
   {path: 'login', component: LoginComponent},
   {path: 'search/:keyword', component: ProductListComponent},
