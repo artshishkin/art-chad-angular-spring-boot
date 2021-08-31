@@ -13,7 +13,7 @@ export class CartService {
   cartTotalsSubject: Subject<CartTotalsDto> = new BehaviorSubject<CartTotalsDto>({totalPrice: 0, totalQuantity: 0});
   cartItemsSubject: Subject<CartItem[]> = new BehaviorSubject<CartItem[]>([]);
 
-  storage: Storage = sessionStorage;
+  storage: Storage = localStorage;
 
   constructor() {
 
