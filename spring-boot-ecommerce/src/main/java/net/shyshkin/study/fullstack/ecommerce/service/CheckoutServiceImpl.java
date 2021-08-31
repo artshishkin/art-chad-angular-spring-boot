@@ -1,6 +1,7 @@
 package net.shyshkin.study.fullstack.ecommerce.service;
 
 import lombok.RequiredArgsConstructor;
+import net.shyshkin.study.fullstack.ecommerce.dto.CustomerDto;
 import net.shyshkin.study.fullstack.ecommerce.dto.PurchaseDto;
 import net.shyshkin.study.fullstack.ecommerce.dto.PurchaseResponseDto;
 import net.shyshkin.study.fullstack.ecommerce.entity.Customer;
@@ -47,7 +48,10 @@ public class CheckoutServiceImpl implements CheckoutService {
         order.setShippingAddress(addressMapper.toEntity(purchase.getShippingAddress()));
 
         // populate customer with order
-        Customer customer = customerMapper.toEntity(purchase.getCustomer());
+        CustomerDto customerDto = purchase.getCustomer();
+        Customer customer = customerRepository
+                .findByEmail(customerDto.getEmail())
+                .orElse(customerMapper.toEntity(customerDto));
         customer.addOrder(order);
 
         // save to the database
