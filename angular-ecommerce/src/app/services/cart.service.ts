@@ -13,7 +13,17 @@ export class CartService {
   cartTotalsSubject: Subject<CartTotalsDto> = new BehaviorSubject<CartTotalsDto>({totalPrice: 0, totalQuantity: 0});
   cartItemsSubject: Subject<CartItem[]> = new BehaviorSubject<CartItem[]>([]);
 
+  storage: Storage = sessionStorage;
+
   constructor() {
+
+    //read the data from storage
+    const storedCartString = this.storage.getItem("storedCart");
+    if (storedCartString != null) {
+      this.cart = JSON.parse(storedCartString, CartService.reviver);
+      this.updateCartItemsSubject();
+      this.computeCartTotals();
+    }
   }
 
   addToCart(cartItem: CartItem) {
@@ -40,6 +50,8 @@ export class CartService {
     console.log(`Total price: ${totalPriceValue.toFixed(2)}, total quantity: ${totalQuantityValue}`);
 
     this.cartTotalsSubject.next({totalPrice: totalPriceValue, totalQuantity: totalQuantityValue})
+
+    this.persistCartItems();
   }
 
   private getCartItems(): CartItem[] {
@@ -71,4 +83,29 @@ export class CartService {
     this.updateCartItemsSubject();
     this.computeCartTotals();
   }
+
+  private persistCartItems() {
+    this.storage.setItem("storedCart", JSON.stringify(this.cart, CartService.replacer));
+  }
+
+  private static replacer(key: string, value: any) {
+    if (value instanceof Map) {
+      return {
+        dataType: 'Map',
+        value: Array.from(value.entries()), // or with spread: value: [...value]
+      };
+    } else {
+      return value;
+    }
+  }
+
+  private static reviver(key: string, value: any) {
+    if (typeof value === 'object' && value !== null) {
+      if (value.dataType === 'Map') {
+        return new Map(value.value);
+      }
+    }
+    return value;
+  }
+
 }
