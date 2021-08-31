@@ -195,6 +195,22 @@
 
 -  Sign-out redirect URIs: `http://localhost:4200`               
 
+####  Section 26: Release 3.0 - Security - User Registration
+
+#####  236. Release 3.0 - Security - User Registration
+
+1.  Enable User Registration in Okta Dashboard
+    -  Users -> Registration (Darby shows but may be outdated)
+    -  Directory -> Self-Service Registration (new console)
+    -  Self-service registration - `Enabled`
+    -  Add to Sign-In widget - `Show "Sign Up" link in the sign-in page at Okta hosted subdomain`
+    -  Registration Form - use default
+    -  Post-registration - Activation requirements -> **no** (for dev purpose)
+    -  Default redirect -> Custom URL -> `http://localhost:4200`
+2.  Configure code in login component     
+    
+    
+    
 
 
 
