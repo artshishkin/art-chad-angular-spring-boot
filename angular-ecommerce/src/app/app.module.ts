@@ -21,6 +21,7 @@ import {LoginStatusComponent} from './components/login-status/login-status.compo
 
 import {OKTA_CONFIG, OktaAuthModule, OktaCallbackComponent} from "@okta/okta-angular";
 import myAppConfig from './config/my-app-config';
+import {MembersPageComponent} from './components/members-page/members-page.component';
 
 const oktaConfig = Object.assign({
   onAuthRequired: (injector: Injector) => {
@@ -57,7 +58,8 @@ const routes: Routes = [
     CheckoutComponent,
     CartItemToOrderItemPipe,
     LoginComponent,
-    LoginStatusComponent
+    LoginStatusComponent,
+    MembersPageComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
