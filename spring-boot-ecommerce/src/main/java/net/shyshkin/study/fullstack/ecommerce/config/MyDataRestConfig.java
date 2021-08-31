@@ -28,21 +28,18 @@ public class MyDataRestConfig implements RepositoryRestConfigurer {
     private final EntityManager entityManager;
 
     @Value("${app.cors.allowedOrigins}")
-    private List<String> corsAllowedOrigins;
+    private String[] corsAllowedOrigins;
 
     @Override
     public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config, CorsRegistry cors) {
 
-        HttpMethod[] unsupportedActions = {POST, PUT, DELETE};
+        HttpMethod[] unsupportedActions = {POST, PUT, DELETE, PATCH};
 
         List.of(Product.class, ProductCategory.class, Country.class, State.class)
                 .forEach(entityClass -> disableHttpMethods(entityClass, config, unsupportedActions));
 
-        if (corsAllowedOrigins != null && !corsAllowedOrigins.isEmpty()) {
-            String[] origins = corsAllowedOrigins.toArray(new String[0]);
-            log.debug("CORS Allowed {} origins: {}", origins.length, origins);
-            cors.addMapping("/api/**").allowedOrigins(origins);
-        }
+        log.debug("CORS Allowed {} origins: {}", corsAllowedOrigins.length, corsAllowedOrigins);
+        cors.addMapping(config.getBasePath() + "/**").allowedOrigins(corsAllowedOrigins);
 
         exposeIdsForAllEntityClasses(config);
     }
