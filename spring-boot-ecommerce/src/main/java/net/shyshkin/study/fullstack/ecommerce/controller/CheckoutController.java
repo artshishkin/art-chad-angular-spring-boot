@@ -5,10 +5,12 @@ import lombok.extern.slf4j.Slf4j;
 import net.shyshkin.study.fullstack.ecommerce.dto.PurchaseDto;
 import net.shyshkin.study.fullstack.ecommerce.dto.PurchaseResponseDto;
 import net.shyshkin.study.fullstack.ecommerce.service.CheckoutService;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
-@CrossOrigin
 @RestController
 @RequestMapping("/api/checkout")
 @RequiredArgsConstructor
