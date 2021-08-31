@@ -1,4 +1,4 @@
-package net.shyshkin.study.fullstack.ecommerce.repositotry;
+package net.shyshkin.study.fullstack.ecommerce.repository;
 
 import net.shyshkin.study.fullstack.ecommerce.entity.Product;
 import org.junit.jupiter.api.Test;

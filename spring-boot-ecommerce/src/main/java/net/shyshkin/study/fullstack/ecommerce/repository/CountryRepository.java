@@ -1,4 +1,4 @@
-package net.shyshkin.study.fullstack.ecommerce.repositotry;
+package net.shyshkin.study.fullstack.ecommerce.repository;
 
 import net.shyshkin.study.fullstack.ecommerce.entity.Country;
 import net.shyshkin.study.fullstack.ecommerce.entity.CountryWithoutStates;

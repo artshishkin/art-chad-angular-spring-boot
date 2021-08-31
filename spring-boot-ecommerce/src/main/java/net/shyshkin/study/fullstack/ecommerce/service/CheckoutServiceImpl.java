@@ -1,7 +1,6 @@
 package net.shyshkin.study.fullstack.ecommerce.service;
 
 import lombok.RequiredArgsConstructor;
-import net.shyshkin.study.fullstack.ecommerce.dto.CustomerDto;
 import net.shyshkin.study.fullstack.ecommerce.dto.PurchaseDto;
 import net.shyshkin.study.fullstack.ecommerce.dto.PurchaseResponseDto;
 import net.shyshkin.study.fullstack.ecommerce.entity.Customer;
@@ -10,7 +9,7 @@ import net.shyshkin.study.fullstack.ecommerce.mapper.AddressMapper;
 import net.shyshkin.study.fullstack.ecommerce.mapper.CustomerMapper;
 import net.shyshkin.study.fullstack.ecommerce.mapper.OrderItemMapper;
 import net.shyshkin.study.fullstack.ecommerce.mapper.OrderMapper;
-import net.shyshkin.study.fullstack.ecommerce.repositotry.CustomerRepository;
+import net.shyshkin.study.fullstack.ecommerce.repository.CustomerRepository;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -48,10 +47,7 @@ public class CheckoutServiceImpl implements CheckoutService {
         order.setShippingAddress(addressMapper.toEntity(purchase.getShippingAddress()));
 
         // populate customer with order
-        CustomerDto customerDto = purchase.getCustomer();
-        Customer customer = customerRepository
-                .findByEmail(customerDto.getEmail())
-                .orElse(customerMapper.toEntity(customerDto));
+        Customer customer = customerMapper.toEntity(purchase.getCustomer());
         customer.addOrder(order);
 
         // save to the database

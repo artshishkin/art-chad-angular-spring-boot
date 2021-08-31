@@ -3,7 +3,7 @@ package net.shyshkin.study.fullstack.ecommerce.controller;
 import net.shyshkin.study.fullstack.ecommerce.dto.OrderItemDto;
 import net.shyshkin.study.fullstack.ecommerce.dto.PurchaseDto;
 import net.shyshkin.study.fullstack.ecommerce.entity.Customer;
-import net.shyshkin.study.fullstack.ecommerce.repositotry.CustomerRepository;
+import net.shyshkin.study.fullstack.ecommerce.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +21,7 @@ public class AssertionService {
     CustomerRepository customerRepository;
 
     @Transactional
-    public void assertThatPurchaseSuccessfullyPopulated(long initialSize, PurchaseDto purchase, String orderTrackingNumber) {
+    public void assertThatPurchaseSuccessfullyPopulated(long expectedFinalSize, PurchaseDto purchase, String orderTrackingNumber) {
         List<Customer> customers = customerRepository.findAll();
 
         var productIds = purchase.getOrderItems().stream()
@@ -29,15 +29,15 @@ public class AssertionService {
                 .collect(Collectors.toSet());
 
         assertThat(customers)
-                .hasSize((int) (initialSize + 1))
+                .hasSize((int) expectedFinalSize)
                 .anySatisfy(customer -> assertThat(customer)
                         .hasNoNullFieldsOrProperties()
                         .hasFieldOrPropertyWithValue("firstName", purchase.getCustomer().getFirstName())
                         .hasFieldOrPropertyWithValue("lastName", purchase.getCustomer().getLastName())
                         .hasFieldOrPropertyWithValue("email", purchase.getCustomer().getEmail())
                         .satisfies(c -> assertThat(c.getOrders())
-                                .hasSize(1)
-                                .allSatisfy(order -> assertAll(
+                                .hasSizeGreaterThanOrEqualTo(1)
+                                .anySatisfy(order -> assertAll(
                                         () -> assertThat(order.getOrderTrackingNumber()).isEqualTo(orderTrackingNumber),
                                         () -> assertThat(order)
                                                 .hasNoNullFieldsOrPropertiesExcept("status")

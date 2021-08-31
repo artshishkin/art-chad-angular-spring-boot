@@ -1,4 +1,4 @@
-package net.shyshkin.study.fullstack.ecommerce.repositotry;
+package net.shyshkin.study.fullstack.ecommerce.repository;
 
 import net.shyshkin.study.fullstack.ecommerce.entity.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;

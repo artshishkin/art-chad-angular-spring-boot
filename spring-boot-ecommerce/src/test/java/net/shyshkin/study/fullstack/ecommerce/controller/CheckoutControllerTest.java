@@ -4,7 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import net.shyshkin.study.fullstack.ecommerce.dto.*;
-import net.shyshkin.study.fullstack.ecommerce.repositotry.CustomerRepository;
+import net.shyshkin.study.fullstack.ecommerce.repository.CustomerRepository;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,11 +39,14 @@ class CheckoutControllerTest {
     @Autowired
     AssertionService assertionService;
 
+    private final static String defaultUserEmail = String.format("user%s@example.com", UUID.randomUUID());
+
     @ParameterizedTest
     @ValueSource(strings = {"random", "json"})
     void checkout(String purchaseGenerationType) {
         //given
         long initialSize = customerRepository.count();
+        long expectedFinalSize = initialSize + 1;
 
         final PurchaseDto purchase =
                 "random".equals(purchaseGenerationType) ? generateRandomPurchase() :
@@ -60,10 +64,39 @@ class CheckoutControllerTest {
                 .hasNoNullFieldsOrProperties()
                 .satisfies(dto -> assertThat(dto.getOrderTrackingNumber()).isNotBlank());
         String orderTrackingNumber = responseEntity.getBody().getOrderTrackingNumber();
-        assertionService.assertThatPurchaseSuccessfullyPopulated(initialSize, purchase, orderTrackingNumber);
+        assertionService.assertThatPurchaseSuccessfullyPopulated(expectedFinalSize, purchase, orderTrackingNumber);
+    }
+
+    @RepeatedTest(5)
+    void checkout_withSameEmail() {
+
+        //given
+        long initialSize = customerRepository.count();
+        long expectedFinalSize = customerRepository.findByEmail(defaultUserEmail).isPresent() ?
+                initialSize :
+                initialSize + 1;
+        final PurchaseDto purchase = generateRandomPurchase(defaultUserEmail);
+
+        //when
+        var responseEntity = testRestTemplate
+                .postForEntity("/api/checkout/purchase", purchase, PurchaseResponseDto.class);
+
+        //then
+        log.debug("Response entity: {}", responseEntity);
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(responseEntity.getBody())
+                .isNotNull()
+                .hasNoNullFieldsOrProperties()
+                .satisfies(dto -> assertThat(dto.getOrderTrackingNumber()).isNotBlank());
+        String orderTrackingNumber = responseEntity.getBody().getOrderTrackingNumber();
+        assertionService.assertThatPurchaseSuccessfullyPopulated(expectedFinalSize, purchase, orderTrackingNumber);
     }
 
     private PurchaseDto generateRandomPurchase() {
+        return generateRandomPurchase(UUID.randomUUID() + "email@example.com");
+    }
+
+    private PurchaseDto generateRandomPurchase(String email) {
         //purchase
         PurchaseDto purchase = new PurchaseDto();
 
@@ -87,9 +120,9 @@ class CheckoutControllerTest {
 
         //customer
         CustomerDto customer = new CustomerDto();
-        customer.setEmail(UUID.randomUUID() + "email@example.com");
-        customer.setFirstName("First Name " + UUID.randomUUID());
-        customer.setLastName("Last Name 1" + UUID.randomUUID());
+        customer.setEmail(email);
+        customer.setFirstName("First Name " + email.toUpperCase());
+        customer.setLastName("Last Name " + email.toUpperCase());
 
         purchase.setCustomer(customer);
 
@@ -116,7 +149,7 @@ class CheckoutControllerTest {
                 "   \"customer\":{\n" +
                 "      \"firstName\":\"afasa\",\n" +
                 "      \"lastName\":\"afasa\",\n" +
-                "      \"email\":\"afasa@test.com\"\n" +
+                "      \"email\":\"" + UUID.randomUUID() + "afasa@test.com\"\n" +
                 "   },\n" +
                 "   \"shippingAddress\":{\n" +
                 "      \"street\":\"afasa\",\n" +

@@ -3,7 +3,7 @@ package net.shyshkin.study.fullstack.ecommerce.mapper;
 import net.shyshkin.study.fullstack.ecommerce.dto.OrderItemDto;
 import net.shyshkin.study.fullstack.ecommerce.entity.OrderItem;
 import net.shyshkin.study.fullstack.ecommerce.entity.Product;
-import net.shyshkin.study.fullstack.ecommerce.repositotry.ProductRepository;
+import net.shyshkin.study.fullstack.ecommerce.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 

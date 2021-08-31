@@ -1,4 +1,4 @@
-package net.shyshkin.study.fullstack.ecommerce.repositotry;
+package net.shyshkin.study.fullstack.ecommerce.repository;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;

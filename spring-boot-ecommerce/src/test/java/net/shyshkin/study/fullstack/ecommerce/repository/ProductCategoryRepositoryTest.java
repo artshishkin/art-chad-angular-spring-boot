@@ -1,7 +1,7 @@
-package net.shyshkin.study.fullstack.ecommerce.repositotry;
+package net.shyshkin.study.fullstack.ecommerce.repository;
 
 import lombok.extern.slf4j.Slf4j;
-import net.shyshkin.study.fullstack.ecommerce.entity.Country;
+import net.shyshkin.study.fullstack.ecommerce.entity.ProductCategory;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -14,37 +14,35 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @Slf4j
 @DataJpaTest
-@ActiveProfiles({"local", "no_cache"})
+@ActiveProfiles({"local","no_cache"})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-class CountryRepositoryTest {
+class ProductCategoryRepositoryTest {
 
     @Autowired
-    CountryRepository repository;
+    ProductCategoryRepository repository;
 
     @Test
     void getById() {
         //given
-        int id = 1;
+        long id = 1L;
 
         //when
-        Optional<Country> byId = repository.findById(id);
+        Optional<ProductCategory> byId = repository.findById(id);
 
         //then
         assertThat(byId)
                 .hasValueSatisfying(pc -> assertThat(pc)
                         .isNotNull()
-                        .hasFieldOrPropertyWithValue("id", id)
-                        .hasFieldOrPropertyWithValue("code", "BR")
-                        .hasFieldOrPropertyWithValue("name", "Brazil")
-                        .satisfies(country -> assertThat(country.getStates())
+                        .hasFieldOrPropertyWithValue("id", 1L)
+                        .hasFieldOrPropertyWithValue("categoryName", "Books")
+                        .satisfies(category -> assertThat(category.getProducts())
                                 .isNotNull()
-                                .hasSizeGreaterThan(10)
-                                .allSatisfy(state -> assertThat(state)
-                                        .hasNoNullFieldsOrProperties()
+                                .hasSize(25)
+                                .allSatisfy(product -> assertThat(product)
+                                        .hasNoNullFieldsOrPropertiesExcept("lastUpdated")
                                         .satisfies(pr -> log.debug("{}", pr)))
                         )
                 );
     }
-
 
 }
