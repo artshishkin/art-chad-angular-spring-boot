@@ -209,9 +209,17 @@
     -  Default redirect -> Custom URL -> `http://localhost:4200`
 2.  Configure code in login component     
     
-    
-    
+####  Section 31: Release 3.0 - Security - Order History - Secure Backend    
 
-
+#####  266. Release 3.0 - Security - Order History - Secure Backend - Set Up Okta App
+    
+-  Okta Dashboard -> Applications
+-  Create App Integration
+    -  Sign-in method - `OIDC - OpenID Connect`
+    -  Application type - `Web Application`
+    -  Create
+    -  App integration name : `Spring Boot Ecommerce Backend`
+    -  Sign-in redirect URIs: `http://localhost:8080/login/oauth2/code/okta`
+    -  Save
 
                 
