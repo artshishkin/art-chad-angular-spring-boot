@@ -2,10 +2,7 @@ package net.shyshkin.study.fullstack.ecommerce.config;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import net.shyshkin.study.fullstack.ecommerce.entity.Country;
-import net.shyshkin.study.fullstack.ecommerce.entity.Product;
-import net.shyshkin.study.fullstack.ecommerce.entity.ProductCategory;
-import net.shyshkin.study.fullstack.ecommerce.entity.State;
+import net.shyshkin.study.fullstack.ecommerce.entity.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
@@ -35,7 +32,7 @@ public class MyDataRestConfig implements RepositoryRestConfigurer {
 
         HttpMethod[] unsupportedActions = {POST, PUT, DELETE, PATCH};
 
-        List.of(Product.class, ProductCategory.class, Country.class, State.class)
+        List.of(Product.class, ProductCategory.class, Country.class, State.class, Order.class)
                 .forEach(entityClass -> disableHttpMethods(entityClass, config, unsupportedActions));
 
         log.debug("CORS Allowed {} origins: {}", corsAllowedOrigins.length, corsAllowedOrigins);
