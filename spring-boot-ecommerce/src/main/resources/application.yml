@@ -10,6 +10,7 @@ spring:
   data:
     rest:
       base-path: /api
+      detection-strategy: annotated
   autoconfigure:
     exclude: org.redisson.spring.starter.RedissonAutoConfiguration
 logging:
