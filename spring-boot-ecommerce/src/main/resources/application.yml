@@ -13,6 +13,7 @@ spring:
       detection-strategy: annotated
   autoconfigure:
     exclude: org.redisson.spring.starter.RedissonAutoConfiguration
+
 logging:
   level:
     net.shyshkin: debug
@@ -20,6 +21,11 @@ app:
   cors:
     allowedOrigins: http://localhost:4200
 #    allowedOrigins: http://localhost:4200,http://localhost:4080
+okta:
+  oauth2:
+    client-id: 0oa1mseq1yGM10BbP5d7
+    client-secret: ${OKTA_OAUTH2_CLIENT_SECRET}
+    issuer: https://dev-83879807.okta.com/oauth2/default
 ---
 spring:
   config:
