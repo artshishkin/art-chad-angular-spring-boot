@@ -1,5 +1,6 @@
 package net.shyshkin.study.fullstack.ecommerce.config;
 
+import com.okta.spring.boot.oauth.Okta;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -20,5 +21,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         // add CORS filters
         http.cors();
+
+        // Send a 401 message to the browser (w/o this, you'll see a blank page)
+        Okta.configureResourceServer401ResponseBody(http);
     }
 }
