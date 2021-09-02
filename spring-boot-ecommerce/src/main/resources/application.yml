@@ -24,7 +24,7 @@ app:
 okta:
   oauth2:
     client-id: 0oa1mseq1yGM10BbP5d7
-    client-secret: ${OKTA_OAUTH2_CLIENT_SECRET}
+    client-secret: ${OKTA_OAUTH2_CLIENT_SECRET:some_fake_secret}
     issuer: https://dev-83879807.okta.com/oauth2/default
 ---
 spring:
