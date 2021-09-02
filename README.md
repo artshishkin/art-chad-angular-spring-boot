@@ -229,5 +229,13 @@
 -  Follow the steps in [instruction](www.luv2code.com/openssl-setup)
 -  `openssl req -x509 -out ssl-localhost\localhost.crt -keyout ssl-localhost\localhost.key -newkey rsa:2048 -nodes -sha256 -days 365 -config localhost.conf`
 
+#####  281. Secure Communication with HTTPS - Okta Updates - Configuration
+
+1.  Update Redirect URI in Angular App
+    -  in file `my-app-config.ts` change http to https
+2.  Update Redirect URIs in Okta Dashboard
+    -  Applications -> My Art2Shop App -> `Sign-in redirect URIs` and `Sign-out redirect URIs`
+3.  Update API Trusted Origins in Okta Dashboard
+    -  Security -> API -> Trusted Origins -> change to https
 
                 
