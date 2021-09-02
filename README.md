@@ -222,4 +222,12 @@
     -  Sign-in redirect URIs: `http://localhost:8080/login/oauth2/code/okta`
     -  Save
 
+####  Section 33: Secure Communication with HTTPS - Angular Frontend
+
+#####  278. Secure Communication with HTTPS - Angular Frontend - Coding Part 1
+
+-  Follow the steps in [instruction](www.luv2code.com/openssl-setup)
+-  `openssl req -x509 -out ssl-localhost\localhost.crt -keyout ssl-localhost\localhost.key -newkey rsa:2048 -nodes -sha256 -days 365 -config localhost.conf`
+
+
                 
