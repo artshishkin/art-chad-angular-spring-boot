@@ -26,6 +26,22 @@ okta:
     client-id: 0oa1mseq1yGM10BbP5d7
     client-secret: ${OKTA_OAUTH2_CLIENT_SECRET:some_fake_secret}
     issuer: https://dev-83879807.okta.com/oauth2/default
+
+#####
+#
+# HTTPS configuration
+#
+#####
+
+server:
+  port: 8443
+  ssl:
+    enabled: true               # Enable HTTPS support (only accept HTTPS requests)
+    key-alias: art2code         # Alias that identifies the key in the key store
+    key-store: classpath:art2code-keystore.p12  # Keystore location
+    key-store-password: secret  # Keystore password
+    key-store-type: PKCS12      # Keystore format
+
 ---
 spring:
   config:

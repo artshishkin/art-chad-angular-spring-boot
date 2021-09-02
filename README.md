@@ -238,4 +238,14 @@
 3.  Update API Trusted Origins in Okta Dashboard
     -  Security -> API -> Trusted Origins -> change to https
 
+####  Section 34: Secure Communication with HTTPS - Spring Boot Backend
+
+#####  283. Secure Communication with HTTPS - Spring Boot Backend - Coding Part 1
+
+-  Follow the steps in [instruction](www.luv2code.com/keytool-steps)
+-  Generate Key and Self-Signed Certificate
+    -  `keytool -genkeypair -alias art2code -keystore src/main/resources/art2code-keystore.p12 -keypass secret -storeType PKCS12 -storepass secret -keyalg RSA -keysize 2048 -validity 365 -dname "C=US, ST=Pennsylvania, L=Philadelphia, O=art2code, OU=Training Backend, CN=localhost" -ext "SAN=dns:localhost"`
+-  Verify Results
+    -  `keytool -list -v -alias art2code -keystore src/main/resources/art2code-keystore.p12 -storepass secret`    
+
                 
