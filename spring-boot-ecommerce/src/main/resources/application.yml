@@ -19,7 +19,7 @@ logging:
     net.shyshkin: debug
 app:
   cors:
-    allowedOrigins: http://localhost:4200
+    allowedOrigins: http://localhost:4200,https://localhost:4200
 #    allowedOrigins: http://localhost:4200,http://localhost:4080
 okta:
   oauth2:
