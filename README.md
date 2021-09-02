@@ -248,4 +248,8 @@
 -  Verify Results
     -  `keytool -list -v -alias art2code -keystore src/main/resources/art2code-keystore.p12 -storepass secret`    
 
-                
+#####  284. Secure Communication with HTTPS - Spring Boot Backend - Coding Part 2
+
+1. make Chrome to allow self-signed certificate on localhost
+    -  `chrome://flags`
+    -  `allow-insecure-localhost`                  
