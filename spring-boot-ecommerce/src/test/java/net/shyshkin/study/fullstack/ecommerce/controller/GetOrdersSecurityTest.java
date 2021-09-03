@@ -17,7 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ActiveProfiles({"local", "no_cache"})
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {
-        "okta.oauth2.client-secret=some_fake_secret"
+        "server.ssl.enabled=false"
 })
 class GetOrdersSecurityTest {
 
@@ -38,7 +38,8 @@ class GetOrdersSecurityTest {
         log.debug("Response entity: {}", responseEntity);
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.UNAUTHORIZED);
         assertThat(responseEntity.getBody())
-                .isNotNull()
-                .isEqualTo("401 Unauthorized");
+                .isBlank();
+//                .isNotNull()
+//                .isEqualTo("401 Unauthorized");
     }
 }
