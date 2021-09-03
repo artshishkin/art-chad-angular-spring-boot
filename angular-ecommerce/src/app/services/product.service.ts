@@ -13,7 +13,7 @@ import {Page} from "../common/page";
 })
 export class ProductService {
 
-  private baseUrl = `${environment.backendServerUrl}/api`;
+  private baseUrl = `${environment.backendServerUrl}`;
   private productsUrl = `${this.baseUrl}/products`;
   private categoryUrl = `${this.baseUrl}/product-category`;
 

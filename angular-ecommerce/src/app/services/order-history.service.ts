@@ -9,7 +9,7 @@ import {Observable} from "rxjs";
 })
 export class OrderHistoryService {
 
-  private orderUrl = `${environment.backendServerUrl}/api/orders`;
+  private orderUrl = `${environment.backendServerUrl}/orders`;
 
   constructor(private httpClient: HttpClient) {
   }

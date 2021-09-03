@@ -9,7 +9,7 @@ import {Observable} from "rxjs";
 })
 export class CheckoutService {
 
-  private purchaseUrl = `${environment.backendServerUrl}/api/checkout/purchase`;
+  private purchaseUrl = `${environment.backendServerUrl}/checkout/purchase`;
 
   constructor(private httpClient: HttpClient) {
   }

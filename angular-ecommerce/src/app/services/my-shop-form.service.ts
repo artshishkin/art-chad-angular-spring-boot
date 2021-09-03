@@ -11,7 +11,7 @@ import {State} from "../common/state";
 })
 export class MyShopFormService {
 
-  private baseUrl = `${environment.backendServerUrl}/api`;
+  private baseUrl = `${environment.backendServerUrl}`;
   private countriesUrl = `${this.baseUrl}/countries`;
 
   constructor(private httpClient: HttpClient) {
