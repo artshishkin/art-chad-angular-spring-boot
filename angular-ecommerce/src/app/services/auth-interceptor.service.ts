@@ -29,6 +29,8 @@ export class AuthInterceptorService implements HttpInterceptor {
       const accessToken = await this.oktaAuthService.getAccessToken();
       //todo
 
+      console.log(`Access Token: ${accessToken}`);
+
       //clone the request and add new header with access token
       req = req.clone({
         setHeaders: {
