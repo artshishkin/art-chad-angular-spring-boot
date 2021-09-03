@@ -51,3 +51,11 @@ spring:
     url: jdbc:mysql://localhost:23306/full-stack-ecommerce
   jpa:
     show-sql: true
+
+---
+spring:
+  config:
+    activate:
+      on-profile: qa
+server:
+  port: 9898
